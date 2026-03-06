@@ -535,3 +535,222 @@ input,
 select {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
+
+/* ========== RESPONSIVE – Mobile & Tablet ========== */
+@media (max-width: 992px) {
+  .app-root {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    max-width: 85vw;
+    height: 100vh;
+    z-index: 102;
+    transition: left 0.3s ease;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 101;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-overlay.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  .main-content {
+    padding: 1rem;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .topbar-title h1 {
+    font-size: 1.25rem;
+  }
+
+  .topbar-title span {
+    font-size: 0.8rem;
+  }
+
+  .topbar-status {
+    align-items: flex-start;
+  }
+
+  .card-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .page.page-with-padding {
+    padding: 1rem !important;
+  }
+
+  .card-header-wrap {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .simple-card-list {
+    grid-template-columns: 1fr;
+  }
+
+  .npk-values {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 0.75rem;
+  }
+
+  .page.page-with-padding {
+    padding: 0.75rem !important;
+  }
+
+  .page-title {
+    font-size: 1.1rem !important;
+  }
+
+  .page-caption {
+    font-size: 0.8rem !important;
+  }
+
+  .card {
+    padding: 1rem !important;
+  }
+
+  .card-header {
+    flex-wrap: wrap !important;
+  }
+
+  .topbar-title h1 {
+    font-size: 1.1rem;
+  }
+
+  .big-number {
+    font-size: 1.35rem;
+  }
+
+  .chart-placeholder {
+    min-height: 160px;
+    padding: 1.5rem 0.75rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .btn-link,
+  .sidebar-link {
+    min-height: 44px;
+    padding: 0.6rem 0.85rem;
+  }
+
+  button:not(.switch) {
+    min-height: 44px;
+    padding: 0.6rem 1rem !important;
+  }
+}
+
+/* Login page responsive */
+@media (max-width: 576px) {
+  .login-card-enter {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0.5rem !important;
+    padding: 1.5rem !important;
+  }
+}
+
+/* Grid sections that use inline styles – override on small screens */
+@media (max-width: 992px) {
+  .card-grid-3[style],
+  section.card-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .card-grid-2[style],
+  section.card-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .simple-card-list[style] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Touch-friendly switch on mobile */
+@media (max-width: 576px) {
+  .switch {
+    width: 48px;
+    height: 26px;
+  }
+
+  .switch-knob {
+    width: 22px;
+    height: 22px;
+  }
+
+  .switch-on .switch-knob {
+    left: 22px;
+  }
+}
+
+/* Menu toggle button (shown only on mobile) */
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #ddeee1;
+  border-radius: 0.6rem;
+  background: #f3fbf5;
+  color: #0f7a4a;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.menu-toggle:hover {
+  background: #e4f4e8;
+}
+
+.menu-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 122, 74, 0.25);
+}
+
+@media (max-width: 992px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .menu-close {
+    display: block !important;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}

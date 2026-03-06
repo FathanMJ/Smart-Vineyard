@@ -6,7 +6,8 @@ function LoginPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#f3f6f9',
+        background:
+          'linear-gradient(135deg, #f5f9ff 0%, #eef7f2 50%, #fefefe 100%)',
         padding: '1.5rem',
       }}
     >
@@ -15,8 +16,11 @@ function LoginPage() {
         style={{
           width: '380px',
           maxWidth: '100%',
-          borderRadius: '1.2rem',
-          boxShadow: '0 18px 45px rgba(12, 55, 40, 0.08)',
+          borderRadius: '1rem',
+          padding: '2rem',
+          backgroundColor: '#ffffff',
+          border: '1px solid #e3ecf3',
+          boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
         }}
       >
         <div
@@ -45,12 +49,24 @@ function LoginPage() {
           >
             S
           </div>
-          <div className="section-title" style={{ textAlign: 'center' }}>
+          <div
+            className="section-title"
+            style={{
+              textAlign: 'center',
+              fontSize: '1.35rem',
+              fontWeight: 700,
+              color: '#111827',
+            }}
+          >
             Smart Vineyard
           </div>
           <div
             className="section-description"
-            style={{ textAlign: 'center', fontSize: '0.86rem' }}
+            style={{
+              textAlign: 'center',
+              fontSize: '0.86rem',
+              color: '#6b7280',
+            }}
           >
             Masuk ke Saung Tinanggur Dashboard
           </div>
@@ -62,27 +78,30 @@ function LoginPage() {
           style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label style={{ fontSize: '0.8rem' }}>Email / Username</label>
-            <div
+            <label style={{ fontSize: '0.8rem', fontWeight: 500, color: '#374151' }}>
+              Email / Username
+            </label>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: '0.6rem',
+              border: '1px solid #d1d5db',
+              padding: '0.45rem 0.75rem',
+              backgroundColor: '#ffffff',
+              transition: 'border-color 0.2s ease',
+            }}
+          >
+            <span
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                borderRadius: '0.7rem',
-                border: '1px solid #dde6ee',
-                padding: '0.2rem 0.65rem',
-                backgroundColor: '#fdfefe',
+                fontSize: '0.95rem',
+                marginRight: '0.4rem',
+                color: '#6b7280',
               }}
             >
-              <span
-                style={{
-                  fontSize: '0.95rem',
-                  marginRight: '0.4rem',
-                  color: '#8ca0b0',
-                }}
-              >
-                @
-              </span>
-              <input
+              @
+            </span>
+            <input
                 type="email"
                 placeholder="admin@tinanggur.com"
                 style={{
@@ -97,22 +116,25 @@ function LoginPage() {
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label style={{ fontSize: '0.8rem' }}>Password</label>
+            <label style={{ fontSize: '0.8rem', fontWeight: 500, color: '#374151' }}>
+              Password
+            </label>
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                borderRadius: '0.7rem',
-                border: '1px solid #dde6ee',
-                padding: '0.2rem 0.65rem',
-                backgroundColor: '#fdfefe',
+                borderRadius: '0.6rem',
+                border: '1px solid #d1d5db',
+                padding: '0.45rem 0.75rem',
+                backgroundColor: '#ffffff',
+                transition: 'border-color 0.2s ease',
               }}
             >
               <span
                 style={{
                   fontSize: '0.95rem',
                   marginRight: '0.4rem',
-                  color: '#8ca0b0',
+                  color: '#6b7280',
                 }}
               >
                 🔒
@@ -163,10 +185,10 @@ function LoginPage() {
             style={{
               marginTop: '0.1rem',
               padding: '0.7rem 0.7rem',
-              borderRadius: '0.8rem',
+              borderRadius: '999px',
               border: 'none',
               background:
-                'linear-gradient(135deg, #1fb766 0%, #109150 55%, #0b6f3d 100%)',
+                'linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%)',
               color: '#f7fff9',
               fontSize: '0.9rem',
               fontWeight: 600,
@@ -175,6 +197,7 @@ function LoginPage() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.35rem',
+              boxShadow: '0 10px 25px rgba(22, 163, 74, 0.35)',
             }}
           >
             Masuk Sistem <span>→</span>
@@ -197,8 +220,8 @@ function LoginPage() {
             type="button"
             style={{
               padding: '0.6rem 0.7rem',
-              borderRadius: '0.8rem',
-              border: '1px solid #dde6ee',
+              borderRadius: '999px',
+              border: '1px solid #d1d5db',
               background: '#ffffff',
               fontSize: '0.86rem',
               cursor: 'pointer',
@@ -206,6 +229,7 @@ function LoginPage() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.45rem',
+              boxShadow: '0 4px 15px rgba(148, 163, 184, 0.2)',
             }}
           >
             <span style={{ fontSize: '1rem' }}>G</span>
