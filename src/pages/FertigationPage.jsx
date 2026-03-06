@@ -1,4 +1,9 @@
+import { useState } from 'react'
+
 function FertigationPage() {
+  const [pumpOn, setPumpOn] = useState(false)
+  const [solenoidOn, setSolenoidOn] = useState(false)
+
   return (
     <div className="page">
       <div className="page-header">
@@ -12,7 +17,7 @@ function FertigationPage() {
       </div>
 
       <section className="card-grid-2">
-        <div className="card">
+        <div className="card card-animate card-animate-delay-1">
           <div className="card-header">
             <div>
               <div className="card-title">Status Sistem</div>
@@ -30,7 +35,7 @@ function FertigationPage() {
           </div>
         </div>
 
-        <div className="card">
+        <div className="card card-animate card-animate-delay-2">
           <div className="card-header">
             <div>
               <div className="card-title">Kontrol Manual</div>
@@ -40,20 +45,32 @@ function FertigationPage() {
           <div className="control-row" style={{ marginTop: '0.25rem' }}>
             <div>
               <div className="card-title">Pompa Irigasi</div>
-              <div className="small-text">Status: OFF</div>
+              <div className="small-text">Status: {pumpOn ? 'MENYIRAM' : 'OFF'}</div>
             </div>
-            <div className="switch">
+            <button
+              type="button"
+              className={`switch ${pumpOn ? 'switch-on' : ''}`}
+              onClick={() => setPumpOn((v) => !v)}
+              aria-label={pumpOn ? 'Matikan pompa' : 'Nyalakan pompa'}
+            >
               <div className="switch-knob" />
-            </div>
+            </button>
           </div>
           <div className="control-row" style={{ marginTop: '0.75rem' }}>
             <div>
               <div className="card-title">Solenoid Valve</div>
-              <div className="small-text">Status: TERTUTUP</div>
+              <div className="small-text">
+                Status: {solenoidOn ? 'TERBUKA' : 'TERTUTUP'}
+              </div>
             </div>
-            <div className="switch">
+            <button
+              type="button"
+              className={`switch ${solenoidOn ? 'switch-on' : ''}`}
+              onClick={() => setSolenoidOn((v) => !v)}
+              aria-label={solenoidOn ? 'Tutup solenoid' : 'Buka solenoid'}
+            >
               <div className="switch-knob" />
-            </div>
+            </button>
           </div>
         </div>
       </section>

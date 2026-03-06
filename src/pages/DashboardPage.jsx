@@ -1,8 +1,13 @@
+import { useState } from 'react'
+
 function DashboardPage() {
+  const [pumpOn, setPumpOn] = useState(true)
+  const [injectOn, setInjectOn] = useState(false)
+
   return (
     <div className="page">
       <section className="card-grid-3">
-        <div className="card">
+        <div className="card card-animate card-animate-delay-1">
           <div className="card-header">
             <div>
               <div className="card-title">Nutrisi Tanah (NPK)</div>
@@ -30,7 +35,7 @@ function DashboardPage() {
           </div>
         </div>
 
-        <div className="card">
+        <div className="card card-animate card-animate-delay-2">
           <div className="card-header">
             <div>
               <div className="card-title">Kondisi Lingkungan</div>
@@ -46,7 +51,7 @@ function DashboardPage() {
           </div>
         </div>
 
-        <div className="card">
+        <div className="card card-animate card-animate-delay-3">
           <div className="card-header">
             <div>
               <div className="card-title">Stok Air & Nutrisi</div>
@@ -77,7 +82,7 @@ function DashboardPage() {
       </section>
 
       <section className="card-grid-2">
-        <div className="card">
+        <div className="card card-animate card-animate-delay-4">
           <div className="card-header">
             <div>
               <div className="card-title">AI Diagnosis (Visual)</div>
@@ -93,7 +98,7 @@ function DashboardPage() {
           </div>
         </div>
 
-        <div className="card">
+        <div className="card card-animate card-animate-delay-5">
           <div className="card-header">
             <div>
               <div className="card-title">Kontrol Fertigasi Manual</div>
@@ -104,26 +109,40 @@ function DashboardPage() {
           <div className="control-row" style={{ marginTop: '0.25rem' }}>
             <div>
               <div className="card-title">Pompa Irigasi</div>
-              <div className="small-text">Status: MENYIRAM · 120 detik</div>
+              <div className="small-text">
+                Status: {pumpOn ? 'MENYIRAM · 120 detik' : 'STANDBY'}
+              </div>
             </div>
-            <div className="switch switch-on">
+            <button
+              type="button"
+              className={`switch ${pumpOn ? 'switch-on' : ''}`}
+              onClick={() => setPumpOn((v) => !v)}
+              aria-label={pumpOn ? 'Matikan pompa' : 'Nyalakan pompa'}
+            >
               <div className="switch-knob" />
-            </div>
+            </button>
           </div>
           <div className="control-row" style={{ marginTop: '0.75rem' }}>
             <div>
               <div className="card-title">Injeksi Nutrisi</div>
-              <div className="small-text">Status: STANDBY</div>
+              <div className="small-text">
+                Status: {injectOn ? 'AKTIF' : 'STANDBY'}
+              </div>
             </div>
-            <div className="switch">
+            <button
+              type="button"
+              className={`switch ${injectOn ? 'switch-on' : ''}`}
+              onClick={() => setInjectOn((v) => !v)}
+              aria-label={injectOn ? 'Matikan injeksi' : 'Nyalakan injeksi'}
+            >
               <div className="switch-knob" />
-            </div>
+            </button>
           </div>
         </div>
       </section>
 
       <section className="card-grid-3">
-        <div className="card">
+        <div className="card card-animate card-animate-delay-6">
           <div className="card-header">
             <div>
               <div className="card-title">Status Perangkat IoT</div>
@@ -138,7 +157,7 @@ function DashboardPage() {
           <div className="small-text">• Node Sensor 1 – Online · Sync 10 detik</div>
         </div>
 
-        <div className="card">
+        <div className="card card-animate card-animate-delay-7">
           <div className="card-header">
             <div>
               <div className="card-title">Alert Sistem</div>
@@ -152,7 +171,7 @@ function DashboardPage() {
           </div>
         </div>
 
-        <div className="card">
+        <div className="card card-animate card-animate-delay-8">
           <div className="card-header">
             <div>
               <div className="card-title">Foto Daun Terbaru</div>
@@ -175,7 +194,7 @@ function DashboardPage() {
         </div>
       </section>
 
-      <section className="card chart-card">
+      <section className="card chart-card card-animate card-animate-delay-9">
         <div className="chart-header">
           <div>
             <div className="card-title">Tren Kelembapan & Nutrisi (24 Jam)</div>

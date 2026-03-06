@@ -10,7 +10,7 @@ function MonitoringPage() {
         </div>
       </div>
 
-      <section className="card">
+      <section className="card card-animate card-animate-delay-1">
         <div className="card-header">
           <div>
             <div className="card-title">Filter Data</div>
@@ -41,7 +41,7 @@ function MonitoringPage() {
         </div>
       </section>
 
-      <section className="card chart-card">
+      <section className="card chart-card card-animate card-animate-delay-2">
         <div className="chart-header">
           <div>
             <div className="card-title">Grafik Historis Sensor</div>
@@ -53,7 +53,7 @@ function MonitoringPage() {
         </div>
       </section>
 
-      <section className="card">
+      <section className="card card-animate card-animate-delay-3">
         <div className="card-header">
           <div>
             <div className="card-title">Tabel Data Sensor</div>

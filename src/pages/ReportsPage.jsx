@@ -10,7 +10,7 @@ function ReportsPage() {
         </div>
       </div>
 
-      <section className="card">
+      <section className="card card-animate card-animate-delay-1">
         <div className="card-header">
           <div>
             <div className="card-title">Generate Laporan</div>
@@ -38,6 +38,7 @@ function ReportsPage() {
         <div style={{ marginTop: '0.75rem', display: 'flex', gap: '0.5rem' }}>
           <button
             type="button"
+            className="btn-primary"
             style={{
               padding: '0.5rem 0.9rem',
               borderRadius: '0.7rem',
@@ -61,6 +62,7 @@ function ReportsPage() {
               background: '#ffffff',
               fontSize: '0.85rem',
               cursor: 'pointer',
+              transition: 'border-color 0.2s ease, transform 0.15s ease',
             }}
           >
             Export PDF

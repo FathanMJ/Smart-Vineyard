@@ -10,7 +10,7 @@ function NotificationsPage() {
         </div>
       </div>
 
-      <section className="card">
+      <section className="card card-animate card-animate-delay-1">
         <div className="card-header">
           <div>
             <div className="card-title">Filter Riwayat</div>
@@ -38,7 +38,7 @@ function NotificationsPage() {
         </div>
       </section>
 
-      <section className="card">
+      <section className="card card-animate card-animate-delay-2">
         <div className="card-header">
           <div>
             <div className="card-title">Riwayat Notifikasi</div>

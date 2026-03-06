@@ -11,7 +11,7 @@ function SmartVisionPage() {
       </div>
 
       <section className="card-grid-2">
-        <div className="card">
+        <div className="card card-animate card-animate-delay-1">
           <div className="card-header">
             <div>
               <div className="card-title">Hasil Analisis Terakhir</div>
@@ -29,7 +29,7 @@ function SmartVisionPage() {
           </div>
         </div>
 
-        <div className="card">
+        <div className="card card-animate card-animate-delay-2">
           <div className="card-header">
             <div>
               <div className="card-title">Rekomendasi Tindakan</div>
@@ -43,7 +43,7 @@ function SmartVisionPage() {
         </div>
       </section>
 
-      <section className="card">
+      <section className="card card-animate card-animate-delay-3">
         <div className="card-header">
           <div>
             <div className="card-title">Galeri Foto Daun</div>

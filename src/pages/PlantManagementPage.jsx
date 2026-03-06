@@ -10,7 +10,7 @@ function PlantManagementPage() {
         </div>
       </div>
 
-      <section className="card">
+      <section className="card card-animate card-animate-delay-1">
         <div className="card-header">
           <div>
             <div className="card-title">Daftar Varietas</div>

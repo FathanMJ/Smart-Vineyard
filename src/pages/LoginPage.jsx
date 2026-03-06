@@ -11,7 +11,7 @@ function LoginPage() {
       }}
     >
       <div
-        className="card"
+        className="card login-card-enter"
         style={{
           width: '380px',
           maxWidth: '100%',
@@ -159,6 +159,7 @@ function LoginPage() {
           </div>
           <button
             type="submit"
+            className="btn-primary"
             style={{
               marginTop: '0.1rem',
               padding: '0.7rem 0.7rem',

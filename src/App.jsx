@@ -1,5 +1,14 @@
-import { BrowserRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation, Outlet } from 'react-router-dom'
 import './App.css'
+
+function PageTransition() {
+  const location = useLocation()
+  return (
+    <div key={location.pathname} className="page-enter">
+      <Outlet />
+    </div>
+  )
+}
 
 import DashboardPage from './pages/DashboardPage.jsx'
 import MonitoringPage from './pages/MonitoringPage.jsx'
@@ -65,16 +74,18 @@ function MainLayout() {
           </div>
         </div>
         <Routes>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/monitoring" element={<MonitoringPage />} />
-          <Route path="/fertigation" element={<FertigationPage />} />
-          <Route path="/vision" element={<SmartVisionPage />} />
-          <Route path="/plants" element={<PlantManagementPage />} />
-          <Route path="/devices" element={<DeviceManagementPage />} />
-          <Route path="/notifications" element={<NotificationsPage />} />
-          <Route path="/reports" element={<ReportsPage />} />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route element={<PageTransition />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/monitoring" element={<MonitoringPage />} />
+            <Route path="/fertigation" element={<FertigationPage />} />
+            <Route path="/vision" element={<SmartVisionPage />} />
+            <Route path="/plants" element={<PlantManagementPage />} />
+            <Route path="/devices" element={<DeviceManagementPage />} />
+            <Route path="/notifications" element={<NotificationsPage />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Route>
         </Routes>
       </main>
     </div>

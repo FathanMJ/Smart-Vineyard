@@ -1,3 +1,33 @@
+/* ---- Animations (optional: respect reduced motion) ---- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .app-root {
   display: flex;
   min-height: 100vh;
@@ -40,10 +70,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .sidebar-link:hover {
   background: #e4f4e8;
+  transform: translateX(4px);
 }
 
 .sidebar-link.active {
@@ -106,6 +138,11 @@
   align-items: center;
   gap: 0.3rem;
   font-size: 0.78rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chip:hover {
+  transform: scale(1.02);
 }
 
 .chip-dot {
@@ -113,6 +150,7 @@
   height: 7px;
   border-radius: 999px;
   background: #18c46b;
+  animation: pulse-soft 2s ease-in-out infinite;
 }
 
 .chip-warning {
@@ -164,6 +202,17 @@
   padding: 1rem 1.1rem;
   box-shadow: 0 10px 30px rgba(18, 48, 40, 0.06);
   border: 1px solid #e2f0e6;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(18, 48, 40, 0.1);
+  border-color: #c4e4cf;
+}
+
+.card-animate {
+  animation: fadeInUp 0.45s ease-out backwards;
 }
 
 .card-header {
@@ -263,14 +312,19 @@
   margin: 0 0.6rem;
 }
 
-.progress-bar-primary {
+.progress-bar-primary,
+.progress-bar-accent {
   height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease-out;
+}
+
+.progress-bar-primary {
   width: 85%;
   background: linear-gradient(90deg, #18c46b, #0f7a4a);
 }
 
 .progress-bar-accent {
-  height: 100%;
   width: 40%;
   background: linear-gradient(90deg, #ffc857, #f29e2e);
 }
@@ -301,10 +355,17 @@
   background: #fff9f1;
   color: #aa7443;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
 }
 
 .btn-link:hover {
   background: #ffe9c7;
+  transform: scale(1.02);
+  border-color: #d4b896;
+}
+
+.btn-link:active {
+  transform: scale(0.98);
 }
 
 .control-row {
@@ -320,6 +381,17 @@
   height: 22px;
   border-radius: 999px;
   background: #e0ece6;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.switch:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 122, 74, 0.35);
+}
+
+.switch:active .switch-knob {
+  width: 20px;
 }
 
 .switch-knob {
@@ -331,6 +403,7 @@
   border-radius: 999px;
   background: #ffffff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: left 0.2s ease, transform 0.15s ease;
 }
 
 .switch-on {
@@ -376,6 +449,11 @@
   justify-content: center;
   font-size: 0.85rem;
   color: #8ca59a;
+  transition: border-color 0.2s ease, background 0.3s ease;
+}
+
+.chart-placeholder:hover {
+  border-color: #a8c9b4;
 }
 
 .tag-pill {
@@ -384,6 +462,13 @@
   border: 1px solid #d3e4d8;
   font-size: 0.75rem;
   color: #6b8a7a;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.tag-pill:hover {
+  background: #e8f4eb;
+  border-color: #b8d4c2;
+  transform: scale(1.03);
 }
 
 .simple-card-list {
@@ -400,4 +485,53 @@
 .section-description {
   font-size: 0.84rem;
   color: #6b8a7a;
+}
+
+/* Page enter animation (for route changes) */
+.page-enter {
+  animation: fadeInUp 0.35s ease-out;
+}
+
+/* Login card entrance */
+.login-card-enter {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Stagger delays for card grids */
+.card-animate-delay-1 { animation-delay: 0.05s; }
+.card-animate-delay-2 { animation-delay: 0.1s; }
+.card-animate-delay-3 { animation-delay: 0.15s; }
+.card-animate-delay-4 { animation-delay: 0.2s; }
+.card-animate-delay-5 { animation-delay: 0.25s; }
+.card-animate-delay-6 { animation-delay: 0.3s; }
+.card-animate-delay-7 { animation-delay: 0.35s; }
+.card-animate-delay-8 { animation-delay: 0.4s; }
+.card-animate-delay-9 { animation-delay: 0.45s; }
+.card-animate-delay-10 { animation-delay: 0.5s; }
+
+/* Primary button (login, reports) */
+.btn-primary {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(15, 122, 74, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Input focus ring */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #0f7a4a;
+  box-shadow: 0 0 0 3px rgba(15, 122, 74, 0.15);
+}
+
+input,
+select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
