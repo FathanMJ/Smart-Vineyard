@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation, Outlet } from 'react-router-dom'
-import './App.css'
+import './assets/styles/App.css'
 
 function PageTransition() {
   const location = useLocation()

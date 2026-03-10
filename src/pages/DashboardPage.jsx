@@ -37,24 +37,8 @@ function DashboardPage() {
   }
 
   return (
-    <div
-      className="page page-with-padding"
-      style={{
-        minHeight: '100vh',
-        padding: '1.5rem',
-        background:
-          'linear-gradient(135deg, #f5f9ff 0%, #eef7f2 50%, #fefefe 100%)',
-      }}
-    >
-      <section
-        className="card-grid-3"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-          gap: '1rem',
-          marginBottom: '1rem',
-        }}
-      >
+    <div className="page page-with-padding page-shell">
+      <section className="card-grid-3">
         <div className="card card-animate card-animate-delay-1" style={cardStyle}>
           <div
             className="card-header"
@@ -183,15 +167,7 @@ function DashboardPage() {
         </div>
       </section>
 
-      <section
-        className="card-grid-2"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-          gap: '1rem',
-          marginBottom: '1rem',
-        }}
-      >
+      <section className="card-grid-2">
         <div className="card card-animate card-animate-delay-4" style={cardStyle}>
           <div
             className="card-header"
@@ -287,15 +263,7 @@ function DashboardPage() {
         </div>
       </section>
 
-      <section
-        className="card-grid-3"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-          gap: '1rem',
-          marginBottom: '1rem',
-        }}
-      >
+      <section className="card-grid-3">
         <div className="card card-animate card-animate-delay-6" style={cardStyle}>
           <div
             className="card-header"

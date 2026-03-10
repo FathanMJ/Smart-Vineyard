@@ -1,14 +1,6 @@
 function DeviceManagementPage() {
   return (
-    <div
-      className="page page-with-padding"
-      style={{
-        minHeight: '100vh',
-        padding: '1.5rem',
-        background:
-          'linear-gradient(135deg, #f5f9ff 0%, #eef7f2 50%, #fefefe 100%)',
-      }}
-    >
+    <div className="page page-with-padding page-shell">
       <div className="page-header" style={{ marginBottom: '1.5rem' }}>
         <div>
           <div
