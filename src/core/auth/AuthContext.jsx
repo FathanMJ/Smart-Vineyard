@@ -1,47 +1,56 @@
-import { createContext, useContext, useMemo, useState } from 'react'
-import { loginRequest } from './authApi'
-import { clearAuth, getAccessToken, getUser, setAccessToken, setUser } from './authStorage'
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { loginRequest } from '../../services/authApi'; // Import API call
+import { setAccessToken, setUser, getUser, clearAuth } from '../../utils/authStorage'; // Import storage utils
 
-const AuthContext = createContext(null)
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [accessToken, setAccessTokenState] = useState(() => getAccessToken())
-  const [user, setUserState] = useState(() => getUser())
+  // Ambil user dari localStorage saat aplikasi pertama kali dimuat
+  const [currentUser, setCurrentUserState] = useState(getUser());
 
-  const isAuthenticated = Boolean(accessToken && user)
+  // Fungsi Login yang dipanggil oleh LoginPage.jsx
+  const login = async ({ email, password }) => {
+    try {
+      // 1. Panggil API ke Backend (pastikan authApi.js sudah pakai http://localhost:5000)
+      const data = await loginRequest({ email, password });
+      
+      // 2. Simpan token dan data user ke localStorage (menggunakan utils Anda)
+      setAccessToken(data.token);
+      
+      // Pisahkan token dari data user sebelum disimpan ke state
+      const userData = {
+        id: data.id,
+        nama_lengkap: data.nama_lengkap,
+        email: data.email,
+        role: data.role
+      };
+      
+      setUser(userData);
+      
+      // 3. Update state aplikasi
+      setCurrentUserState(userData);
 
-  const value = useMemo(() => {
-    return {
-      accessToken,
-      user,
-      isAuthenticated,
-      async login({ email, password }) {
-        const data = await loginRequest({ email, password })
-        if (!data?.accessToken || !data?.user) {
-          throw new Error('Invalid login response')
-        }
-
-        setAccessToken(data.accessToken)
-        setUser(data.user)
-        setAccessTokenState(data.accessToken)
-        setUserState(data.user)
-
-        return data.user
-      },
-      logout() {
-        clearAuth()
-        setAccessTokenState(null)
-        setUserState(null)
-      },
+      // Kembalikan data user agar bisa dibaca oleh .then(u => ...) di LoginPage
+      return userData; 
+    } catch (error) {
+      // Lempar error ke LoginPage agar bisa ditampilkan di UI
+      throw error; 
     }
-  }, [accessToken, user, isAuthenticated])
+  };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  // Fungsi Logout
+  const logout = () => {
+    clearAuth(); // Hapus dari localStorage
+    setCurrentUserState(null); // Hapus dari state
+  };
+
+  return (
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider')
-  return ctx
+  return useContext(AuthContext);
 }
-

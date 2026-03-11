@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../core/auth/AuthContext.jsx'
-import { getDefaultRoleHomePath } from '../core/auth/rolePaths.js'
+import { useAuth } from '../../core/auth/AuthContext.jsx'
+import { getDefaultRoleHomePath } from '../../utils/rolePaths.js'
 
 function LoginPage() {
   const { login } = useAuth()
@@ -14,6 +14,7 @@ function LoginPage() {
   const [error, setError] = useState('')
 
   const from = location.state?.from?.pathname
+
   return (
     <div className="login-page">
       <div className="card login-card-enter login-card">
@@ -32,17 +33,28 @@ function LoginPage() {
 
             login({ email, password })
               .then((u) => {
+                // === LOG UNTUK DEBUGGING ===
+                console.log("🟢 LOGIN API SUKSES! Data dari Backend:", u)
+                
                 const target = from && from !== '/login' ? from : getDefaultRoleHomePath(u?.role)
+                
+                console.log("🔵 MAU PINDAH KE HALAMAN:", target)
+                // =====================================
+
                 navigate(target, { replace: true })
               })
               .catch((err) => {
+                // === LOG UNTUK DEBUGGING ===
+                console.error("🔴 YAH GAGAL LOGIN:", err)
+                // =====================================
+                
                 setError(err?.message || 'Login gagal')
               })
               .finally(() => setLoading(false))
           }}
           className="login-form"
         >
-          {error ? <div className="small-text text-body">{error}</div> : null}
+          {error ? <div className="small-text text-body" style={{ color: 'red', marginBottom: '10px' }}>{error}</div> : null}
           <div className="login-field">
             <label className="login-label">Email / Username</label>
             <div className="login-input-wrapper">
@@ -84,6 +96,7 @@ function LoginPage() {
           >
             {loading ? 'Memproses...' : <>Masuk Sistem <span>→</span></>}
           </button>
+          
           <div className="login-divider-row">
             <div className="login-divider-line" />
             <span>Atau masuk dengan</span>
@@ -96,6 +109,22 @@ function LoginPage() {
             <span className="login-google-icon">G</span>
             <span>Google</span>
           </button>
+
+          {/* === TAMBAHAN TOMBOL REGISTER DI SINI === */}
+          <div className="login-divider-row" style={{ marginTop: '20px' }}>
+            <div className="login-divider-line" />
+            <span>Belum punya akun?</span>
+            <div className="login-divider-line" />
+          </div>
+          <button
+            type="button"
+            className="login-google-btn" /* Kita pinjam styling button yang sama */
+            onClick={() => navigate('/register')}
+          >
+            Daftar di sini
+          </button>
+          {/* ======================================== */}
+
         </form>
       </div>
     </div>
@@ -103,4 +132,3 @@ function LoginPage() {
 }
 
 export default LoginPage
-

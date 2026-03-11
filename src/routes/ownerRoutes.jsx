@@ -15,7 +15,8 @@ export function OwnerRoutes() {
     <Route
       path={`${OwnerPaths.root}/*`}
       element={
-        <RequireRole allowed={['owner']}>
+        // Sesuaikan allowed dengan huruf besar 'O' (sesuai database ENUM)
+        <RequireRole allowed={['Owner', 'owner']}> 
           <RoleLayout role="owner" />
         </RequireRole>
       }
