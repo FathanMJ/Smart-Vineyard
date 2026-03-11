@@ -734,6 +734,11 @@ select {
   transition: background 0.2s ease, transform 0.15s ease;
 }
 
+/* Close button default: hanya tampil di mobile (lihat media query) */
+.menu-close {
+  display: none;
+}
+
 .menu-toggle:hover {
   background: #e4f4e8;
 }
@@ -1010,6 +1015,13 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.u-img-preview {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 0.9rem;
 }
 
 .chart-header-wrap {
@@ -1497,6 +1509,19 @@ select {
   box-shadow: 0 10px 25px rgba(22, 163, 74, 0.35);
 }
 
+.login-password-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 0.25rem;
+  color: #6b7280;
+}
+
+.login-password-toggle:hover {
+  color: #111827;
+}
+
 .login-divider-row {
   display: flex;
   align-items: center;
@@ -1504,6 +1529,19 @@ select {
   margin: 0.6rem 0 0.3rem;
   font-size: 0.8rem;
   color: #8ca0b0;
+}
+
+.login-secondary-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid #e3ecf3;
+  background-color: #f9fafb;
+  color: #111827;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .login-divider-line {
