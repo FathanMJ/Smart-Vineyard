@@ -6,151 +6,66 @@ function FertigationPage() {
 
   return (
     <div className="page page-with-padding page-shell">
-      <div className="page-header" style={{ marginBottom: '1.5rem' }}>
+      <div className="page-header u-mb-15">
         <div>
-          <div
-            className="page-title"
-            style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1b2733' }}
-          >
-            Smart Fertigation
-          </div>
-          <div
-            className="page-caption"
-            style={{ marginTop: '0.25rem', color: '#5f6c7b', fontSize: '0.95rem' }}
-          >
+          <div className="page-title page-title-lg">Smart Fertigation</div>
+          <div className="page-caption page-caption-lg">
             Kontrol penyiraman dan pemberian nutrisi berbasis kontrol proporsional.
           </div>
         </div>
         <span
-          className="badge"
-          style={{
-            alignSelf: 'flex-start',
-            padding: '0.3rem 0.7rem',
-            borderRadius: '999px',
-            backgroundColor: 'rgba(34, 197, 94, 0.1)',
-            color: '#16a34a',
-            fontSize: '0.78rem',
-            fontWeight: 600,
-          }}
+          className="badge badge-pill-success"
         >
           Mode Otomatis
         </span>
       </div>
 
       <section
-        className="card-grid-2"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.1fr) minmax(0, 1fr)',
-          gap: '1rem',
-        }}
+        className="card-grid-2 grid-2-wide"
       >
         <div
-          className="card card-animate card-animate-delay-1"
-          style={{
-            backgroundColor: '#ffffff',
-            borderRadius: '1rem',
-            padding: '1.25rem 1.5rem',
-            border: '1px solid #e3ecf3',
-            boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
-          }}
+          className="card card-animate card-animate-delay-1 card-elevated"
         >
           <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
+            className="card-header card-header-top"
           >
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Status Sistem
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
+              <div className="card-title card-title-lg">Status Sistem</div>
+              <div className="card-subtitle card-subtitle-lg">
                 Ringkasan operasi fertigasi
               </div>
             </div>
           </div>
-          <div
-            className="small-text"
-            style={{ fontSize: '0.9rem', color: '#374151', lineHeight: 1.6 }}
-          >
+          <div className="small-text text-stat">
             Moisture sekarang: <strong>62%</strong> · Target: <strong>65%</strong>
           </div>
-          <div
-            className="small-text"
-            style={{ marginTop: '0.4rem', fontSize: '0.9rem', color: '#4b5563' }}
-          >
+          <div className="small-text text-stat-muted u-mt-04">
             Mode kontrol: <strong>Proportional Control</strong>
           </div>
-          <div
-            className="small-text"
-            style={{ marginTop: '0.4rem', fontSize: '0.9rem', color: '#4b5563' }}
-          >
+          <div className="small-text text-stat-muted u-mt-04">
             Durasi penyiraman terakhir: <strong>120 detik</strong>
           </div>
         </div>
 
         <div
-          className="card card-animate card-animate-delay-2"
-          style={{
-            backgroundColor: '#ffffff',
-            borderRadius: '1rem',
-            padding: '1.25rem 1.5rem',
-            border: '1px solid #e3ecf3',
-            boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
-          }}
+          className="card card-animate card-animate-delay-2 card-elevated"
         >
           <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
+            className="card-header card-header-top"
           >
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Kontrol Manual
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
+              <div className="card-title card-title-lg">Kontrol Manual</div>
+              <div className="card-subtitle card-subtitle-lg">
                 Override mode otomatis
               </div>
             </div>
           </div>
           <div
-            className="control-row"
-            style={{
-              marginTop: '0.25rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1rem',
-            }}
+            className="control-row control-row-lg u-mt-025"
           >
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111827' }}
-              >
-                Pompa Irigasi
-              </div>
-              <div className="small-text" style={{ fontSize: '0.84rem', color: '#4b5563' }}>
+              <div className="card-title">Pompa Irigasi</div>
+              <div className="small-text text-body-sm">
                 Status: {pumpOn ? 'MENYIRAM' : 'OFF'}
               </div>
             </div>
@@ -164,23 +79,11 @@ function FertigationPage() {
             </button>
           </div>
           <div
-            className="control-row"
-            style={{
-              marginTop: '0.75rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1rem',
-            }}
+            className="control-row control-row-lg u-mt-075"
           >
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111827' }}
-              >
-                Solenoid Valve
-              </div>
-              <div className="small-text" style={{ fontSize: '0.84rem', color: '#4b5563' }}>
+              <div className="card-title">Solenoid Valve</div>
+              <div className="small-text text-body-sm">
                 Status: {solenoidOn ? 'TERBUKA' : 'TERTUTUP'}
               </div>
             </div>

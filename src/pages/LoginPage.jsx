@@ -1,4 +1,19 @@
+import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../core/auth/AuthContext.jsx'
+import { getDefaultRoleHomePath } from '../core/auth/rolePaths.js'
+
 function LoginPage() {
+  const { login } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const from = location.state?.from?.pathname
   return (
     <div className="login-page">
       <div className="card login-card-enter login-card">
@@ -12,9 +27,22 @@ function LoginPage() {
         <form
           onSubmit={(e) => {
             e.preventDefault()
+            setError('')
+            setLoading(true)
+
+            login({ email, password })
+              .then((u) => {
+                const target = from && from !== '/login' ? from : getDefaultRoleHomePath(u?.role)
+                navigate(target, { replace: true })
+              })
+              .catch((err) => {
+                setError(err?.message || 'Login gagal')
+              })
+              .finally(() => setLoading(false))
           }}
           className="login-form"
         >
+          {error ? <div className="small-text text-body">{error}</div> : null}
           <div className="login-field">
             <label className="login-label">Email / Username</label>
             <div className="login-input-wrapper">
@@ -23,6 +51,8 @@ function LoginPage() {
                 type="email"
                 placeholder="admin@tinanggur.com"
                 className="login-input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -34,12 +64,14 @@ function LoginPage() {
                 type="password"
                 placeholder="••••••••"
                 className="login-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
           <div className="login-remember-row">
             <label className="login-remember-checkbox">
-              <input type="checkbox" style={{ accentColor: '#0f7a4a' }} /> Ingat saya
+              <input type="checkbox" className="accent-green" /> Ingat saya
             </label>
             <button type="button" className="login-forgot-btn">
               Lupa password?
@@ -48,8 +80,9 @@ function LoginPage() {
           <button
             type="submit"
             className="btn-primary login-submit-btn"
+            disabled={loading}
           >
-            Masuk Sistem <span>→</span>
+            {loading ? 'Memproses...' : <>Masuk Sistem <span>→</span></>}
           </button>
           <div className="login-divider-row">
             <div className="login-divider-line" />

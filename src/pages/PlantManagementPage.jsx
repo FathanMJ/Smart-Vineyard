@@ -1,61 +1,29 @@
 function PlantManagementPage() {
   return (
     <div className="page page-with-padding page-shell">
-      <div className="page-header" style={{ marginBottom: '1.5rem' }}>
+      <div className="page-header u-mb-15">
         <div>
-          <div
-            className="page-title"
-            style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1b2733' }}
-          >
-            Manajemen Tanaman
-          </div>
-          <div
-            className="page-caption"
-            style={{ marginTop: '0.25rem', color: '#5f6c7b', fontSize: '0.95rem' }}
-          >
+          <div className="page-title page-title-lg">Manajemen Tanaman</div>
+          <div className="page-caption page-caption-lg">
             Atur varietas anggur dan parameter target untuk kontrol otomatis.
           </div>
         </div>
       </div>
 
       <section
-        className="card card-animate card-animate-delay-1"
-        style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '1rem',
-          padding: '1.25rem 1.5rem',
-          border: '1px solid #e3ecf3',
-          boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
-        }}
+        className="card card-animate card-animate-delay-1 card-elevated"
       >
         <div
-          className="card-header"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            marginBottom: '0.6rem',
-          }}
+          className="card-header card-header-top"
         >
           <div>
-            <div
-              className="card-title"
-              style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-            >
-              Daftar Varietas
-            </div>
-            <div
-              className="card-subtitle"
-              style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-            >
+            <div className="card-title card-title-lg">Daftar Varietas</div>
+            <div className="card-subtitle card-subtitle-lg">
               Threshold kelembapan & nutrisi
             </div>
           </div>
         </div>
-        <div
-          className="small-text"
-          style={{ fontSize: '0.85rem', color: '#4b5563', lineHeight: 1.6 }}
-        >
+        <div className="small-text text-body">
           Tabel konfigurasi varietas (Jupiter, dsb) akan ditampilkan di sini.
         </div>
       </section>

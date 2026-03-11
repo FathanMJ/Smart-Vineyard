@@ -4,66 +4,16 @@ function DashboardPage() {
   const [pumpOn, setPumpOn] = useState(true)
   const [injectOn, setInjectOn] = useState(false)
 
-  const cardStyle = {
-    backgroundColor: '#ffffff',
-    borderRadius: '1rem',
-    padding: '1.25rem 1.5rem',
-    border: '1px solid #e3ecf3',
-    boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
-  }
-  const badgeSuccess = {
-    padding: '0.25rem 0.6rem',
-    borderRadius: '999px',
-    backgroundColor: 'rgba(34, 197, 94, 0.1)',
-    color: '#16a34a',
-    fontSize: '0.75rem',
-    fontWeight: 600,
-  }
-  const badgeCritical = {
-    padding: '0.25rem 0.6rem',
-    borderRadius: '999px',
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
-    color: '#dc2626',
-    fontSize: '0.75rem',
-    fontWeight: 600,
-  }
-  const badgeDefault = {
-    padding: '0.25rem 0.6rem',
-    borderRadius: '999px',
-    backgroundColor: 'rgba(148, 163, 184, 0.15)',
-    color: '#475569',
-    fontSize: '0.75rem',
-    fontWeight: 600,
-  }
-
   return (
     <div className="page page-with-padding page-shell">
-      <section className="card-grid-3">
-        <div className="card card-animate card-animate-delay-1" style={cardStyle}>
-          <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
-          >
+      <section className="card-grid-3 u-mb-1">
+        <div className="card card-animate card-animate-delay-1 card-elevated">
+          <div className="card-header card-header-top">
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Nutrisi Tanah (NPK)
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
-                Kandungan nutrisi terkini
-              </div>
+              <div className="card-title card-title-lg">Nutrisi Tanah (NPK)</div>
+              <div className="card-subtitle card-subtitle-lg">Kandungan nutrisi terkini</div>
             </div>
-            <span className="badge badge-success" style={badgeSuccess}>Optimal</span>
+            <span className="badge badge-success badge-pill-success">Optimal</span>
           </div>
           <div className="npk-values">
             <div className="npk-item">
@@ -85,63 +35,27 @@ function DashboardPage() {
           </div>
         </div>
 
-        <div className="card card-animate card-animate-delay-2" style={cardStyle}>
-          <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
-          >
+        <div className="card card-animate card-animate-delay-2 card-elevated">
+          <div className="card-header card-header-top">
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Kondisi Lingkungan
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
-                Status kelembapan area akar
-              </div>
+              <div className="card-title card-title-lg">Kondisi Lingkungan</div>
+              <div className="card-subtitle card-subtitle-lg">Status kelembapan area akar</div>
             </div>
           </div>
-          <div style={{ marginTop: '0.4rem' }}>
+          <div className="u-mt-04">
             <span className="big-number">72%</span>{' '}
             <span className="muted">Kelembapan tanah</span>
           </div>
-          <div className="small-text" style={{ marginTop: '0.35rem' }}>
+          <div className="small-text u-mt-035">
             Udara: <strong>29°C</strong> · RH: <strong>65%</strong>
           </div>
         </div>
 
-        <div className="card card-animate card-animate-delay-3" style={cardStyle}>
-          <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
-          >
+        <div className="card card-animate card-animate-delay-3 card-elevated">
+          <div className="card-header card-header-top">
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Stok Air & Nutrisi
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
-                Tandon utama & pupuk cair
-              </div>
+              <div className="card-title card-title-lg">Stok Air & Nutrisi</div>
+              <div className="card-subtitle card-subtitle-lg">Tandon utama & pupuk cair</div>
             </div>
           </div>
           <div className="tank-list">
@@ -167,30 +81,12 @@ function DashboardPage() {
         </div>
       </section>
 
-      <section className="card-grid-2">
-        <div className="card card-animate card-animate-delay-4" style={cardStyle}>
-          <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
-          >
+      <section className="card-grid-2 u-mb-1">
+        <div className="card card-animate card-animate-delay-4 card-elevated">
+          <div className="card-header card-header-top">
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                AI Diagnosis (Visual)
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
-                Analisis daun terakhir dari kamera
-              </div>
+              <div className="card-title card-title-lg">AI Diagnosis (Visual)</div>
+              <div className="card-subtitle card-subtitle-lg">Analisis daun terakhir dari kamera</div>
             </div>
           </div>
           <div className="ai-diagnosis">
@@ -202,33 +98,15 @@ function DashboardPage() {
           </div>
         </div>
 
-        <div className="card card-animate card-animate-delay-5" style={cardStyle}>
-          <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
-          >
+        <div className="card card-animate card-animate-delay-5 card-elevated">
+          <div className="card-header card-header-top">
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Kontrol Fertigasi Manual
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
-                Pompa & injeksi nutrisi
-              </div>
+              <div className="card-title card-title-lg">Kontrol Fertigasi Manual</div>
+              <div className="card-subtitle card-subtitle-lg">Pompa & injeksi nutrisi</div>
             </div>
-            <span className="badge" style={badgeDefault}>Mode Manual</span>
+            <span className="badge badge-pill-neutral">Mode Manual</span>
           </div>
-          <div className="control-row" style={{ marginTop: '0.25rem' }}>
+          <div className="control-row u-mt-025">
             <div>
               <div className="card-title">Pompa Irigasi</div>
               <div className="small-text">
@@ -244,7 +122,7 @@ function DashboardPage() {
               <div className="switch-knob" />
             </button>
           </div>
-          <div className="control-row" style={{ marginTop: '0.75rem' }}>
+          <div className="control-row u-mt-075">
             <div>
               <div className="card-title">Injeksi Nutrisi</div>
               <div className="small-text">
@@ -263,32 +141,14 @@ function DashboardPage() {
         </div>
       </section>
 
-      <section className="card-grid-3">
-        <div className="card card-animate card-animate-delay-6" style={cardStyle}>
-          <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
-          >
+      <section className="card-grid-3 u-mb-1">
+        <div className="card card-animate card-animate-delay-6 card-elevated">
+          <div className="card-header card-header-top">
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Status Perangkat IoT
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
-                ESP32, kamera, dan sensor
-              </div>
+              <div className="card-title card-title-lg">Status Perangkat IoT</div>
+              <div className="card-subtitle card-subtitle-lg">ESP32, kamera, dan sensor</div>
             </div>
-            <span className="badge badge-success" style={badgeSuccess}>Semua Online</span>
+            <span className="badge badge-success badge-pill-success">Semua Online</span>
           </div>
           <div className="small-text">
             • ESP32 Utama – Online · RSSI -63 dBm
@@ -297,31 +157,13 @@ function DashboardPage() {
           <div className="small-text">• Node Sensor 1 – Online · Sync 10 detik</div>
         </div>
 
-        <div className="card card-animate card-animate-delay-7" style={cardStyle}>
-          <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
-          >
+        <div className="card card-animate card-animate-delay-7 card-elevated">
+          <div className="card-header card-header-top">
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Alert Sistem
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
-                Peringatan kritis terbaru
-              </div>
+              <div className="card-title card-title-lg">Alert Sistem</div>
+              <div className="card-subtitle card-subtitle-lg">Peringatan kritis terbaru</div>
             </div>
-            <span className="badge-critical badge" style={badgeCritical}>2 Alert</span>
+            <span className="badge badge-critical badge-pill-critical">2 Alert</span>
           </div>
           <div className="small-text">• Tandon air cadangan mendekati kosong</div>
           <div className="small-text">
@@ -329,138 +171,44 @@ function DashboardPage() {
           </div>
         </div>
 
-        <div className="card card-animate card-animate-delay-8" style={cardStyle}>
-          <div
-            className="card-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '0.6rem',
-            }}
-          >
+        <div className="card card-animate card-animate-delay-8 card-elevated">
+          <div className="card-header card-header-top">
             <div>
-              <div
-                className="card-title"
-                style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-              >
-                Foto Daun Terbaru
-              </div>
-              <div
-                className="card-subtitle"
-                style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-              >
-                Dari kamera Smart Vineyard
-              </div>
+              <div className="card-title card-title-lg">Foto Daun Terbaru</div>
+              <div className="card-subtitle card-subtitle-lg">Dari kamera Smart Vineyard</div>
             </div>
           </div>
           <div
-            className="chart-placeholder"
-            style={{
-              minHeight: '140px',
-              borderRadius: '0.9rem',
-              border: '1px dashed #cbd5e1',
-              background:
-                'repeating-linear-gradient(135deg, #f9fafb, #f9fafb 8px, #f3f4f6 8px, #f3f4f6 16px)',
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '0.86rem',
-              color: '#6b7280',
-            }}
+            className="chart-placeholder placeholder-striped placeholder-photo"
           >
             Area Foto Daun (thumbnail ESP32-CAM)
           </div>
-          <div className="small-text" style={{ marginTop: '0.5rem' }}>
+          <div className="small-text u-mt-05">
             Diisi dengan snapshot terbaru + hasil klasifikasi AI.
           </div>
         </div>
       </section>
 
       <section
-        className="card chart-card card-animate card-animate-delay-9"
-        style={cardStyle}
+        className="card chart-card card-animate card-animate-delay-9 card-elevated"
       >
         <div
-          className="chart-header"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-            marginBottom: '0.75rem',
-          }}
+          className="chart-header chart-header-wrap"
         >
           <div>
-            <div
-              className="card-title"
-              style={{ fontSize: '1rem', fontWeight: 600, color: '#111827' }}
-            >
-              Tren Kelembapan & Nutrisi (24 Jam)
-            </div>
-            <div
-              className="card-subtitle"
-              style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: '#6b7280' }}
-            >
+            <div className="card-title card-title-lg">Tren Kelembapan & Nutrisi (24 Jam)</div>
+            <div className="card-subtitle card-subtitle-lg">
               Soil moisture dan NPK per 30 menit
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-            <span
-              className="tag-pill"
-              style={{
-                padding: '0.25rem 0.6rem',
-                borderRadius: '999px',
-                backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                color: '#16a34a',
-                fontSize: '0.75rem',
-                fontWeight: 500,
-              }}
-            >
-              NPK
-            </span>
-            <span
-              className="tag-pill"
-              style={{
-                padding: '0.25rem 0.6rem',
-                borderRadius: '999px',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                color: '#2563eb',
-                fontSize: '0.75rem',
-                fontWeight: 500,
-              }}
-            >
-              Moisture
-            </span>
-            <span
-              className="tag-pill"
-              style={{
-                padding: '0.25rem 0.6rem',
-                borderRadius: '999px',
-                backgroundColor: 'rgba(148, 163, 184, 0.15)',
-                color: '#475569',
-                fontSize: '0.75rem',
-                fontWeight: 500,
-              }}
-            >
-              Hari ini
-            </span>
+          <div className="tag-row">
+            <span className="tag-pill tag-pill-success">NPK</span>
+            <span className="tag-pill tag-pill-info">Moisture</span>
+            <span className="tag-pill tag-pill-neutral">Hari ini</span>
           </div>
         </div>
         <div
-          className="chart-placeholder"
-          style={{
-            borderRadius: '0.9rem',
-            border: '1px dashed #cbd5e1',
-            background:
-              'repeating-linear-gradient(135deg, #f9fafb, #f9fafb 8px, #f3f4f6 8px, #f3f4f6 16px)',
-            padding: '2.5rem 1rem',
-            fontSize: '0.86rem',
-            color: '#6b7280',
-            textAlign: 'center',
-          }}
+          className="chart-placeholder placeholder-striped"
         >
           Area Grafik Tren (Integrasi Recharts / Chart.js nanti)
         </div>
