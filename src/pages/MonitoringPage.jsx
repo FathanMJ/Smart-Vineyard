@@ -70,7 +70,7 @@ function MonitoringPage() {
         <div>
           <div className="page-title page-title-lg">Monitoring Sensor</div>
           <div className="page-caption page-caption-lg">
-            Lihat tren soil moisture, pH, NPK, dan suhu secara real-time.
+            Lihat tren soil moisture, pH, dan NPK secara real-time.
           </div>
         </div>
       </div>

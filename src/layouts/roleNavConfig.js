@@ -7,7 +7,6 @@ export const roleNavConfig = {
     links: [
       { to: OwnerPaths.dashboard, label: 'Dashboard' },
       { to: OwnerPaths.users, label: 'Manajemen Pengguna' },
-      { to: OwnerPaths.monitoring, label: 'Monitoring Sensor' },
       { to: OwnerPaths.sensors, label: 'Data Sensor' },
       { to: OwnerPaths.tanks, label: 'Tandon Air' },
       { to: OwnerPaths.manualControl, label: 'Kontrol Manual' },

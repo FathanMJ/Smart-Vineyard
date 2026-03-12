@@ -29,18 +29,16 @@ function DashboardPage() {
     const data = []
     const today = new Date()
     const forecasts = [
-      { day: 'Besok', weather: 'Cerah', temp: 28, rh: 60, sm: 52 },
-      { day: '+2 hari', weather: 'Berawan', temp: 26, rh: 65, sm: 45 },
-      { day: '+3 hari', weather: 'Hujan', temp: 22, rh: 75, sm: 68 },
-      { day: '+4 hari', weather: 'Cerah', temp: 27, rh: 62, sm: 38 },
-      { day: '+5 hari', weather: 'Cerah', temp: 29, rh: 58, sm: 30 },
-      { day: '+6 hari', weather: 'Berawan', temp: 25, rh: 68, sm: 42 },
-      { day: '+7 hari', weather: 'Cerah', temp: 28, rh: 61, sm: 48 },
+      { day: 'Besok', weather: 'Cerah', sm: 52 },
+      { day: '+2 hari', weather: 'Berawan', sm: 45 },
+      { day: '+3 hari', weather: 'Hujan', sm: 68 },
+      { day: '+4 hari', weather: 'Cerah', sm: 38 },
+      { day: '+5 hari', weather: 'Cerah', sm: 30 },
+      { day: '+6 hari', weather: 'Berawan', sm: 42 },
+      { day: '+7 hari', weather: 'Cerah', sm: 48 },
     ]
     return forecasts.map((f) => ({
       name: f.day,
-      temp: f.temp,
-      humidity: f.rh,
       soilMoisture: f.sm,
     }))
   }, [])
@@ -86,9 +84,6 @@ function DashboardPage() {
           <div className="u-mt-04">
             <span className="big-number">72%</span>{' '}
             <span className="muted">Kelembapan tanah</span>
-          </div>
-          <div className="small-text u-mt-035">
-            Udara: <strong>29°C</strong> · RH: <strong>65%</strong>
           </div>
         </div>
 

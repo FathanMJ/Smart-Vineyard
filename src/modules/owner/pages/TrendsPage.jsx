@@ -7,8 +7,6 @@ function OwnerTrendsPage() {
     const days = ['13 Mar', '14 Mar', '15 Mar', '16 Mar', '17 Mar', '18 Mar', '19 Mar']
     return days.map((day, i) => ({
       name: day,
-      temp: 22 + Math.random() * 8,
-      humidity: 55 + Math.random() * 25,
       soilMoisture: 30 + Math.random() * 50,
       rainfall: i === 2 ? 15 : Math.random() * 5,
     }))
@@ -38,15 +36,15 @@ function OwnerTrendsPage() {
           <div className="simple-card-list u-mt-05">
             <div className="small-stat">
               <div className="small-text text-sm-muted">13 Mar (Besok)</div>
-              <div style={{ fontSize: '0.9rem' }}>☀️ Cerah – 28°C · Kelembapan 60%</div>
+              <div style={{ fontSize: '0.9rem' }}>☀️ Cerah</div>
             </div>
             <div className="small-stat">
               <div className="small-text text-sm-muted">14 Mar</div>
-              <div style={{ fontSize: '0.9rem' }}>⛅ Sebagian Berawan – 26°C · Kelembapan 65%</div>
+              <div style={{ fontSize: '0.9rem' }}>⛅ Sebagian Berawan</div>
             </div>
             <div className="small-stat">
               <div className="small-text text-sm-muted">15 Mar</div>
-              <div style={{ fontSize: '0.9rem' }}>🌧️ Hujan Ringan – 22°C · Kelembapan 75%</div>
+              <div style={{ fontSize: '0.9rem' }}>🌧️ Hujan Ringan</div>
             </div>
           </div>
         </div>
@@ -90,48 +88,6 @@ function OwnerTrendsPage() {
               ✓ <strong>Sesuaikan jadwal</strong> – Pindahkan jadwal pagi ke 05:30
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Trend Charts */}
-      <section className="card card-animate card-elevated u-mb-1" style={{ marginBottom: '20px' }}>
-        <div className="chart-header" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
-          <div style={{ flex: 1, minWidth: '200px' }}>
-            <div className="card-title card-title-lg">Grafik Tren Suhu & Kelembapan</div>
-            <div className="card-subtitle card-subtitle-lg">Perkiraan kondisi lingkungan 7 hari</div>
-          </div>
-        </div>
-        <div style={{ width: '100%', minHeight: '340px', padding: 'clamp(0.75rem, 2%, 1.5rem) 0', backgroundColor: '#fafbfc', borderRadius: '8px', marginTop: '15px' }}>
-          <ResponsiveContainer width="100%" height={320}>
-            <LineChart data={forecastData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e7e3" />
-              <XAxis 
-                dataKey="name" 
-                stroke="#789487"
-                style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.8rem)' }}
-                tick={{ fill: '#789487' }}
-              />
-              <YAxis 
-                stroke="#789487"
-                style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.8rem)' }}
-                tick={{ fill: '#789487' }}
-              />
-              <Tooltip 
-                contentStyle={{
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #27ae60',
-                  borderRadius: '0.8rem',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                  fontSize: 'clamp(0.7rem, 2vw, 0.85rem)',
-                }}
-                labelStyle={{ color: '#0f5a3a', fontWeight: 'bold' }}
-                formatter={(value) => value.toFixed(1)}
-              />
-              <Legend wrapperStyle={{ paddingTop: '1rem', fontSize: 'clamp(0.7rem, 2vw, 0.85rem)' }} />
-              <Line type="monotone" dataKey="temp" stroke="#e67e22" name="Suhu (°C)" strokeWidth={2} dot={false} />
-              <Line type="monotone" dataKey="humidity" stroke="#2980b9" name="Kelembapan (%)" strokeWidth={2} dot={false} />
-            </LineChart>
-          </ResponsiveContainer>
         </div>
       </section>
 
@@ -187,8 +143,6 @@ function OwnerTrendsPage() {
               <tr style={{ borderBottom: '3px solid #27ae60' }}>
                 <th style={{ color: '#27ae60' }}>Tanggal</th>
                 <th style={{ color: '#27ae60' }}>Cuaca</th>
-                <th style={{ color: '#27ae60' }}>Suhu (°C)</th>
-                <th style={{ color: '#27ae60' }}>Kelembapan (%)</th>
                 <th style={{ color: '#27ae60' }}>Prediksi SM (%)</th>
                 <th style={{ color: '#27ae60' }}>Aksi Saran</th>
               </tr>
@@ -197,40 +151,30 @@ function OwnerTrendsPage() {
               <tr>
                 <td>13 Mar</td>
                 <td>Cerah</td>
-                <td>28</td>
-                <td>60</td>
                 <td>52</td>
                 <td>Irigasi pagi</td>
               </tr>
               <tr>
                 <td>14 Mar</td>
                 <td>Berawan</td>
-                <td>26</td>
-                <td>65</td>
                 <td>45</td>
                 <td>Irigasi pagi</td>
               </tr>
               <tr>
                 <td>15 Mar</td>
                 <td>Hujan Ringan</td>
-                <td>22</td>
-                <td>75</td>
                 <td>68</td>
                 <td>Tunda irigasi</td>
               </tr>
               <tr>
                 <td>16 Mar</td>
                 <td>Cerah</td>
-                <td>27</td>
-                <td>62</td>
                 <td>38</td>
                 <td>Irigasi sore</td>
               </tr>
               <tr>
                 <td>17 Mar</td>
                 <td>Cerah</td>
-                <td>29</td>
-                <td>58</td>
                 <td>30</td>
                 <td>Irigasi dobel</td>
               </tr>

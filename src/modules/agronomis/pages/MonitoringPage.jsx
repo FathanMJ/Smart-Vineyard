@@ -36,10 +36,6 @@ function AgronomisMonitoringPage() {
         return +(10 + Math.random() * 40).toFixed(1)
       case 'EC':
         return +(0.2 + Math.random() * 1.6).toFixed(2)
-      case 'Suhu Udara':
-        return +(18 + Math.random() * 12).toFixed(1)
-      case 'Kelembapan Udara':
-        return +(40 + Math.random() * 50).toFixed(1)
       default:
         return +(Math.random() * 100).toFixed(1)
     }
@@ -66,8 +62,6 @@ function AgronomisMonitoringPage() {
         P: generateMockValueFor('P'),
         K: generateMockValueFor('K'),
         EC: generateMockValueFor('EC'),
-        temp: generateMockValueFor('Suhu Udara'),
-        humidity: generateMockValueFor('Kelembapan Udara'),
       }
       points.push(point)
       cur.setMinutes(cur.getMinutes() + minutes)
@@ -97,7 +91,6 @@ function AgronomisMonitoringPage() {
       soilMoisture: parseFloat(p.soilMoisture),
       pH: parseFloat(p.pH),
       EC: parseFloat(p.EC),
-      temp: parseFloat(p.temp),
     }))
   }, [dataPoints])
 
@@ -135,7 +128,6 @@ function AgronomisMonitoringPage() {
           {parameter === 'Soil Moisture' && <Line type="monotone" dataKey="soilMoisture" stroke="#27ae60" name="Soil Moisture (%)" strokeWidth={3} dot={false} />}
           {parameter === 'pH Tanah' && <Line type="monotone" dataKey="pH" stroke="#e74c3c" name="pH Tanah" strokeWidth={3} dot={false} />}
           {parameter === 'EC' && <Line type="monotone" dataKey="EC" stroke="#1abc9c" name="EC (mS/cm)" strokeWidth={3} dot={false} />}
-          <Line type="monotone" dataKey="temp" stroke="#e67e22" name="Suhu (°C)" strokeWidth={2} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     )
@@ -238,7 +230,6 @@ function AgronomisMonitoringPage() {
                 <th style={{ color: '#27ae60' }}>Soil Moisture</th>
                 <th style={{ color: '#27ae60' }}>pH</th>
                 <th style={{ color: '#27ae60' }}>EC</th>
-                <th style={{ color: '#27ae60' }}>Suhu</th>
               </tr>
             </thead>
             <tbody>
@@ -249,12 +240,11 @@ function AgronomisMonitoringPage() {
                     <td>{r.soilMoisture}</td>
                     <td>{r.pH}</td>
                     <td>{r.EC}</td>
-                    <td>{r.temp}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5">Tidak ada data</td>
+                  <td colSpan="4">Tidak ada data</td>
                 </tr>
               )}
             </tbody>

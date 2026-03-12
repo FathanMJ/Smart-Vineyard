@@ -5,8 +5,6 @@ function OwnerThresholdsPage() {
     soilMoisture: { min: 40, max: 70, unit: '%' },
     ph: { min: 5.5, max: 7.0, unit: 'pH' },
     ec: { min: 0.5, max: 1.5, unit: 'dS/m' },
-    temp: { min: 15, max: 30, unit: '°C' },
-    humidity: { min: 50, max: 85, unit: '%' },
   })
 
   return (
@@ -28,8 +26,6 @@ function OwnerThresholdsPage() {
             soilMoisture: 'Soil Moisture',
             ph: 'pH Tanah',
             ec: 'Electrical Conductivity',
-            temp: 'Suhu Udara',
-            humidity: 'Kelembapan Udara',
           }
           return (
             <div key={key} className="card card-animate card-elevated">
@@ -102,12 +98,6 @@ function OwnerThresholdsPage() {
           </div>
           <div className="small-text" style={{ paddingBottom: '8px', borderBottom: '1px solid #f0f0f0' }}>
             <strong>EC (Salinitas):</strong> 0.5–1.5 dS/m – Konsentrasi nutrisi optimal
-          </div>
-          <div className="small-text" style={{ paddingBottom: '8px', borderBottom: '1px solid #f0f0f0' }}>
-            <strong>Suhu:</strong> 15–30°C – Rentang pertumbuhan tanaman yang baik
-          </div>
-          <div className="small-text">
-            <strong>Kelembapan Udara:</strong> 50–85% – Minimalisir penyakit, maksimalkan fotosintesis
           </div>
         </div>
       </section>

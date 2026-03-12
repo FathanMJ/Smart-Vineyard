@@ -1,4 +1,4 @@
-import DashboardPage from '../../../pages/DiagnosaPage.jsx'
+import { useState } from 'react'
 
 function OwnerDiagnosaPage() {
   const [diagnosisResults] = useState([
