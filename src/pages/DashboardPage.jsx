@@ -1,8 +1,49 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 function DashboardPage() {
   const [pumpOn, setPumpOn] = useState(true)
   const [injectOn, setInjectOn] = useState(false)
+
+  // Generate 24-hour trend data
+  const trendData = useMemo(() => {
+    const data = []
+    const now = new Date()
+    for (let i = 23; i >= 0; i--) {
+      const time = new Date(now)
+      time.setHours(time.getHours() - i)
+      data.push({
+        time: time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+        soilMoisture: 40 + Math.random() * 40,
+        N: 100 + Math.random() * 50,
+        P: 40 + Math.random() * 30,
+        K: 150 + Math.random() * 60,
+        pH: 6.0 + Math.random() * 1.5,
+      })
+    }
+    return data
+  }, [])
+
+  // Generate 7-day forecast data
+  const forecastData = useMemo(() => {
+    const data = []
+    const today = new Date()
+    const forecasts = [
+      { day: 'Besok', weather: 'Cerah', temp: 28, rh: 60, sm: 52 },
+      { day: '+2 hari', weather: 'Berawan', temp: 26, rh: 65, sm: 45 },
+      { day: '+3 hari', weather: 'Hujan', temp: 22, rh: 75, sm: 68 },
+      { day: '+4 hari', weather: 'Cerah', temp: 27, rh: 62, sm: 38 },
+      { day: '+5 hari', weather: 'Cerah', temp: 29, rh: 58, sm: 30 },
+      { day: '+6 hari', weather: 'Berawan', temp: 25, rh: 68, sm: 42 },
+      { day: '+7 hari', weather: 'Cerah', temp: 28, rh: 61, sm: 48 },
+    ]
+    return forecasts.map((f) => ({
+      name: f.day,
+      temp: f.temp,
+      humidity: f.rh,
+      soilMoisture: f.sm,
+    }))
+  }, [])
 
   return (
     <div className="page page-with-padding page-shell">
@@ -191,26 +232,55 @@ function DashboardPage() {
 
       <section
         className="card chart-card card-animate card-animate-delay-9 card-elevated"
+        style={{ marginTop: '30px', marginBottom: '30px' }}
       >
         <div
           className="chart-header chart-header-wrap"
+          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}
         >
-          <div>
+          <div style={{ flex: 1, minWidth: '200px' }}>
             <div className="card-title card-title-lg">Tren Kelembapan & Nutrisi (24 Jam)</div>
             <div className="card-subtitle card-subtitle-lg">
               Soil moisture dan NPK per 30 menit
             </div>
           </div>
-          <div className="tag-row">
+          <div className="tag-row" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             <span className="tag-pill tag-pill-success">NPK</span>
             <span className="tag-pill tag-pill-info">Moisture</span>
-            <span className="tag-pill tag-pill-neutral">Hari ini</span>
+            <span className="tag-pill tag-pill-neutral">24 Jam</span>
           </div>
         </div>
-        <div
-          className="chart-placeholder placeholder-striped"
-        >
-          Area Grafik Tren (Integrasi Recharts / Chart.js nanti)
+        <div style={{ width: '100%', minHeight: '380px', padding: 'clamp(0.75rem, 2%, 1.5rem) 0', backgroundColor: '#fafbfc', borderRadius: '8px', marginTop: '15px' }}>
+          <ResponsiveContainer width="100%" height={360}>
+            <LineChart data={trendData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e0e7e3" />
+              <XAxis 
+                dataKey="time" 
+                stroke="#789487"
+                style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.8rem)' }}
+                tick={{ fill: '#789487' }}
+              />
+              <YAxis 
+                stroke="#789487"
+                style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.8rem)' }}
+                tick={{ fill: '#789487' }}
+              />
+              <Tooltip 
+                contentStyle={{
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #27ae60',
+                  borderRadius: '0.8rem',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  fontSize: 'clamp(0.7rem, 2vw, 0.85rem)',
+                }}
+                labelStyle={{ color: '#0f5a3a', fontWeight: 'bold' }}
+              />
+              <Legend wrapperStyle={{ paddingTop: '1rem', fontSize: 'clamp(0.7rem, 2vw, 0.85rem)' }} />
+              <Line type="monotone" dataKey="soilMoisture" stroke="#27ae60" name="Soil Moisture (%)" strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="N" stroke="#3498db" name="N (mg/kg)" strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="pH" stroke="#e74c3c" name="pH Tanah" strokeWidth={2} dot={false} />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </section>
     </div>

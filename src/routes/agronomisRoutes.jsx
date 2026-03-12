@@ -4,6 +4,7 @@ import { RequireRole } from '../core/auth/RequireRole.jsx'
 import { RoleLayout } from '../layouts/RoleLayout.jsx'
 
 import AgronomisDashboardPage from '../modules/agronomis/pages/DashboardPage.jsx'
+import AgronomisMonitoringPage from '../modules/agronomis/pages/MonitoringPage.jsx'
 import AgronomisSensorsPage from '../modules/agronomis/pages/SensorsPage.jsx'
 import AgronomisAnalysisPage from '../modules/agronomis/pages/AnalysisPage.jsx'
 import AgronomisRecommendationPage from '../modules/agronomis/pages/RecommendationPage.jsx'
@@ -20,6 +21,7 @@ export function AgronomisRoutes() {
       }
     >
       <Route path="dashboard" element={<AgronomisDashboardPage />} />
+      <Route path="monitoring" element={<AgronomisMonitoringPage />} />
       <Route path="sensors" element={<AgronomisSensorsPage />} />
       <Route path="analysis" element={<AgronomisAnalysisPage />} />
       <Route path="recommendation" element={<AgronomisRecommendationPage />} />
