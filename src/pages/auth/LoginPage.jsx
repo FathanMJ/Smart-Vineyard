@@ -10,6 +10,7 @@ function LoginPage() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -73,19 +74,31 @@ function LoginPage() {
             <div className="login-input-wrapper">
               <span className="login-input-icon">🔒</span>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="••••••••"
                 className="login-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <button
+                type="button"
+                className="login-password-toggle"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Sembunyikan password' : 'Lihat password'}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </button>
             </div>
           </div>
           <div className="login-remember-row">
             <label className="login-remember-checkbox">
               <input type="checkbox" className="accent-green" /> Ingat saya
             </label>
-            <button type="button" className="login-forgot-btn">
+            <button
+              type="button"
+              className="login-forgot-btn"
+              onClick={() => navigate(PublicPaths.forgotPassword)}
+            >
               Lupa password?
             </button>
           </div>

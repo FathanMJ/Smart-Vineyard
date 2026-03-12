@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useMemo, useState, useEffect } from 'react'
+import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../core/auth/AuthContext'
 import { roleNavConfig } from './roleNavConfig'
 import { PublicPaths } from '../routes/routePaths'
@@ -22,10 +22,16 @@ export function RoleLayout({ role }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const config = useMemo(() => {
     return roleNavConfig[role] ?? { title: 'Smart Vineyard', subtitle: '', links: [] }
   }, [role])
+
+  useEffect(() => {
+    const el = document.querySelector('.main-content')
+    if (el) el.scrollTop = 0
+  }, [location])
 
   return (
     <div className="app-root">
@@ -125,4 +131,5 @@ export function RoleLayout({ role }) {
     </div>
   )
 }
+
 

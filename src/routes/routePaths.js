@@ -1,6 +1,7 @@
 export const PublicPaths = {
   landing: '/landing',
   login: '/login',
+  forgotPassword: '/forgot-password',
 }
 
 export const OwnerPaths = {
