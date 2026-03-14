@@ -18,7 +18,6 @@ export const OwnerPaths = {
   reports: '/owner/reports',
   settings: '/owner/settings',
   monitoring: '/owner/monitoring',
-  diagnosa: '/owner/diagnosa',
 }
 
 export const AgronomisPaths = {

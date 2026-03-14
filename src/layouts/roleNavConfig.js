@@ -12,11 +12,10 @@ export const roleNavConfig = {
       { to: OwnerPaths.manualControl, label: 'Kontrol Manual' },
       { to: OwnerPaths.thresholds, label: 'Atur Threshold' },
       { to: OwnerPaths.trends, label: 'Prediksi Tren' },
-      { to: OwnerPaths.diagnosa, label: 'Diagnosis Penyakit' },
       { to: OwnerPaths.notifications, label: 'Notifikasi' },
       { to: OwnerPaths.analysis, label: 'Analisis AI' },
       { to: OwnerPaths.reports, label: 'Laporan' },
-      { to: OwnerPaths.settings, label: 'Pengaturan' },
+      // { to: OwnerPaths.settings, label: 'Pengaturan' },
     ],
   },
   agronomis: {

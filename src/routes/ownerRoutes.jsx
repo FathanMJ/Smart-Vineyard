@@ -34,7 +34,6 @@ export function OwnerRoutes() {
       <Route path="manual-control" element={<OwnerManualControlPage />} />
       <Route path="thresholds" element={<OwnerThresholdsPage />} />
       <Route path="trends" element={<OwnerTrendsPage />} />
-      <Route path="diagnosa" element={<OwnerDiagnosaPage />} />
       <Route path="notifications" element={<NotificationsPage />} />
       <Route path="analysis" element={<OwnerAnalysisPage />} />
       <Route path="reports" element={<ReportsPage />} />
