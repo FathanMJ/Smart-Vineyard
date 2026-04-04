@@ -61,6 +61,12 @@ function PlantManagementPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      // Validasi form
+      if (!formData.nama_varietas || formData.nama_varietas.trim() === '') {
+        alert('Nama varietas tidak boleh kosong!')
+        return
+      }
+
       const method = editingId ? 'PUT' : 'POST'
       const url = editingId 
         ? `http://localhost:5000/api/varietas/${editingId}`
@@ -76,12 +82,17 @@ function PlantManagementPage() {
       })
       
       const result = await response.json()
+      
       if (result.status === 'success') {
+        alert(editingId ? 'Varietas berhasil diperbarui!' : 'Varietas berhasil ditambahkan!')
         await fetchVarietas()
         setShowForm(false)
+      } else {
+        alert(`Error: ${result.message || 'Gagal menyimpan varietas'}`)
       }
     } catch (error) {
       console.error('Error submitting varietas:', error)
+      alert(`Error: ${error.message}`)
     }
   }
 

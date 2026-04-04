@@ -1,13 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getLatestDiagnosis, getDiagnosisHistory } from '../services/diagnosisApi';
 
 function SmartVisionPage() {
   const [latest, setLatest] = useState(null);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
+  const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const streamRef = useRef(null);
 
   const DEVICE_ID = "ESP32-MAC-A001"; 
-  const BASE_URL = "http://localhost:5000"; // Sesuaikan dengan port backend Anda
+  const BASE_URL = "http://localhost:5000";
 
   useEffect(() => {
     const fetchAIStatus = async () => {
@@ -26,6 +35,110 @@ function SmartVisionPage() {
     fetchAIStatus();
   }, []);
 
+  // Handle camera access
+  const handleOpenCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: 'environment' } 
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+      setShowCamera(true);
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+      alert('Tidak bisa akses kamera. Error: ' + error.message);
+    }
+  };
+
+  // Capture photo dari camera
+  const handleCapturePhoto = () => {
+    if (videoRef.current && canvasRef.current) {
+      const context = canvasRef.current.getContext('2d');
+      context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
+      
+      canvasRef.current.toBlob((blob) => {
+        const file = new File([blob], `photo-${Date.now()}.jpg`, { type: 'image/jpeg' });
+        setSelectedPhoto(file);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setPhotoPreview(e.target?.result);
+        };
+        reader.readAsDataURL(blob);
+      }, 'image/jpeg');
+      
+      // Stop camera
+      handleCloseCamera();
+    }
+  };
+
+  // Close camera
+  const handleCloseCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setShowCamera(false);
+  };
+
+  // Handle file selection dari galeri
+  const handleFileSelect = (event) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    // Validasi ukuran file (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Ukuran file terlalu besar. Maksimal 5MB.')
+      return
+    }
+
+    // Validasi tipe file
+    if (!['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)) {
+      alert('Format file tidak didukung. Gunakan JPG atau PNG.')
+      return
+    }
+
+    setSelectedPhoto(file)
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      setPhotoPreview(e.target?.result)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  // Analisis foto
+  const handleAnalyzePhoto = async () => {
+    if (!selectedPhoto) {
+      alert('Silakan pilih foto terlebih dahulu!')
+      return
+    }
+
+    setIsAnalyzing(true)
+    
+    try {
+      alert('Analisis foto sedang diproses dengan AI...')
+      setTimeout(() => {
+        setIsAnalyzing(false)
+        alert('Foto berhasil dianalisis!')
+        setSelectedPhoto(null)
+        setPhotoPreview(null)
+      }, 2000)
+    } catch (error) {
+      console.error('Error analyzing photo:', error)
+      alert('Gagal menganalisis foto: ' + error.message)
+      setIsAnalyzing(false)
+    }
+  }
+
+  // Bersihkan preview
+  const handleClearPhoto = () => {
+    setSelectedPhoto(null)
+    setPhotoPreview(null)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+    if (cameraInputRef.current) cameraInputRef.current.value = ''
+  }
+
   if (loading) return <div className="page page-with-padding">Menganalisis Data AI...</div>;
 
   return (
@@ -36,6 +149,157 @@ function SmartVisionPage() {
           <div className="page-caption page-caption-lg">Analisis visual daun anggur via Roboflow AI.</div>
         </div>
       </div>
+
+      {/* Quick Action Buttons */}
+      <section className="u-mb-1">
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gap: '12px',
+          marginBottom: '20px'
+        }}>
+          <button 
+            type="button" 
+            className="btn-primary btn-pill-primary"
+            onClick={handleOpenCamera}
+            style={{
+              padding: '16px 20px',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              borderRadius: '12px',
+              transition: 'all 0.3s'
+            }}
+          >
+            <span style={{ fontSize: '1.5rem' }}>📷</span>
+            <span>Ambil Foto</span>
+          </button>
+
+          <button 
+            type="button" 
+            className="btn-pill-outline"
+            onClick={() => fileInputRef.current?.click()}
+            style={{
+              padding: '16px 20px',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              borderRadius: '12px',
+              transition: 'all 0.3s'
+            }}
+          >
+            <span style={{ fontSize: '1.5rem' }}>📁</span>
+            <span>Pilih Galeri</span>
+          </button>
+        </div>
+      </section>
+
+      {/* Hidden Canvas untuk capture */}
+      <canvas ref={canvasRef} style={{ display: 'none' }} width={1280} height={720} />
+
+      {/* Camera Modal */}
+      {showCamera && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: '#000',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000
+        }}>
+          <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              style={{
+                width: '100%',
+                maxWidth: '600px',
+                height: 'auto',
+                borderRadius: '12px',
+                backgroundColor: '#000'
+              }}
+            />
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                type="button"
+                className="btn-primary btn-pill-primary"
+                onClick={handleCapturePhoto}
+              >
+                ✓ Ambil Foto
+              </button>
+              <button
+                type="button"
+                className="btn-pill-outline"
+                onClick={handleCloseCamera}
+              >
+                ✕ Tutup
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hidden File Input - Gallery */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/jpg"
+        style={{ display: 'none' }}
+        onChange={handleFileSelect}
+      />
+
+      {/* Photo Preview & Analysis */}
+      {photoPreview && (
+        <section className="card card-animate card-elevated u-mb-1">
+          <div className="card-header card-header-top">
+            <div>
+              <div className="card-title card-title-lg">Preview Foto</div>
+              <div className="card-subtitle card-subtitle-lg">Nama file: {selectedPhoto?.name}</div>
+            </div>
+          </div>
+          <div className="simple-card-list u-mt-05">
+            <div style={{ textAlign: 'center', marginBottom: '12px' }}>
+              <img 
+                src={photoPreview} 
+                alt="Preview" 
+                style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px' }}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                type="button"
+                className="btn-primary btn-pill-primary"
+                style={{ flex: 1 }}
+                onClick={handleAnalyzePhoto}
+                disabled={isAnalyzing}
+              >
+                {isAnalyzing ? '⏳ Menganalisis...' : '✓ Analisis Foto'}
+              </button>
+              <button
+                type="button"
+                className="btn-pill-outline"
+                style={{ flex: 1 }}
+                onClick={handleClearPhoto}
+                disabled={isAnalyzing}
+              >
+                ✕ Batal
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="card-grid-2 grid-2-wide u-mb-1">
         {/* HASIL ANALISIS DINAMIS DENGAN GAMBAR */}

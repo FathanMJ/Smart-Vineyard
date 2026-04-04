@@ -64,62 +64,103 @@ function MonitoringPage() {
   }, [])
 
   return (
-    <div className="page page-with-padding page-shell" style={{ backgroundColor: '#f7fafc' }}>
+    <div className="page page-with-padding page-shell" style={{ backgroundColor: '#f8f9fa' }}>
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+        @keyframes slideIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .card-responsive {
+          animation: slideIn 0.5s ease-out;
+          transition: all 0.3s ease;
+          border-radius: 15px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .card-responsive:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+        }
+      `}</style>
+
       {/* Header */}
-      <div className="page-header u-mb-15" style={{ marginBottom: '25px' }}>
+      <div className="page-header u-mb-2" style={{ marginBottom: '30px' }}>
         <div>
-          <div className="page-title page-title-lg">Monitoring Sensor</div>
-          <div className="page-caption page-caption-lg">
-            Lihat tren soil moisture, pH, dan NPK secara real-time.
-          </div>
+          <div className="page-title page-title-lg" style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '8px' }}>📊 Monitoring Sensor</div>
+          <div className="page-caption page-caption-lg" style={{ fontSize: '1.1rem', color: '#7f8c8d' }}>Tren real-time soil moisture, pH, dan NPK dari perangkat IoT</div>
         </div>
       </div>
 
       {error && (
-        <div style={{ backgroundColor: '#ffebee', color: '#c62828', padding: '12px 15px', borderRadius: '6px', marginBottom: '20px', border: '1px solid #ef5350' }}>
-          <strong>⚠️ Peringatan:</strong> {error}
+        <div style={{
+          backgroundColor: '#fadbd8',
+          color: '#c62828',
+          padding: '16px',
+          borderRadius: '12px',
+          marginBottom: '20px',
+          border: '2px solid #e74c3c',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          animation: 'slideIn 0.3s ease-out'
+        }}>
+          <span style={{ fontSize: '20px' }}>⚠️</span>
+          <div>
+            <strong>Koneksi Error</strong>
+            <div style={{ fontSize: '13px', marginTop: '4px' }}>{error}</div>
+          </div>
         </div>
       )}
 
-      {/* Filter + Ringkasan cepat */}
-      <section className="card-grid-3 u-mb-1" style={{ marginBottom: '30px', gap: '15px' }}>
-        
-        {/* === KOTAK FILTER DATA (DIKEMBALIKAN) === */}
-        <div className="card card-animate card-animate-delay-1 card-elevated card-stretch">
-          <div className="card-header card-header-top-md">
-            <div>
-              <div className="card-title card-title-lg">Filter Data</div>
-              <div className="card-subtitle card-subtitle-lg">Pilih rentang waktu & parameter</div>
-            </div>
+      {/* Filter + Status Cards */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '20px',
+        marginBottom: '30px'
+      }}>
+        {/* Filter Card */}
+        <div className="card-responsive" style={{
+          backgroundColor: '#ffffff',
+          border: '1px solid #ecf0f1',
+          padding: '24px'
+        }}>
+          <div style={{ marginBottom: '20px' }}>
+            <div style={{ fontSize: '16px', fontWeight: '600', color: '#2c3e50', marginBottom: '4px' }}>🔍 Filter & Pencarian</div>
+            <div style={{ fontSize: '12px', color: '#7f8c8d' }}>Sesuaikan rentang data</div>
           </div>
-          <div className="simple-card-list form-grid-2 u-mt-05">
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div>
-              <div className="small-text text-sm-muted">Tanggal Mulai</div>
+              <label style={{ fontSize: '12px', fontWeight: '500', color: '#7f8c8d', display: 'block', marginBottom: '6px' }}>Dari Tanggal</label>
               <input 
                 type="date" 
-                className="form-control" 
-                value={startDate} 
-                onChange={(e) => setStartDate(e.target.value)} 
-                style={{ width: '100%', padding: '5px' }}
+                className="form-control"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ecf0f1' }}
               />
             </div>
             <div>
-              <div className="small-text text-sm-muted">Tanggal Akhir</div>
+              <label style={{ fontSize: '12px', fontWeight: '500', color: '#7f8c8d', display: 'block', marginBottom: '6px' }}>Sampai Tanggal</label>
               <input 
                 type="date" 
-                className="form-control" 
-                value={endDate} 
-                onChange={(e) => setEndDate(e.target.value)} 
-                style={{ width: '100%', padding: '5px' }}
+                className="form-control"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ecf0f1' }}
               />
             </div>
             <div>
-              <div className="small-text text-sm-muted" style={{ marginTop: '10px' }}>Parameter</div>
+              <label style={{ fontSize: '12px', fontWeight: '500', color: '#7f8c8d', display: 'block', marginBottom: '6px' }}>Parameter</label>
               <select 
-                className="form-control" 
-                value={selectedParam} 
+                className="form-control"
+                value={selectedParam}
                 onChange={(e) => setSelectedParam(e.target.value)}
-                style={{ width: '100%', padding: '5px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ecf0f1' }}
               >
                 <option>Semua Parameter</option>
                 <option>Soil Moisture</option>
@@ -127,129 +168,200 @@ function MonitoringPage() {
                 <option>NPK</option>
               </select>
             </div>
-          </div>
-          <div className="btn-row u-mt-075" style={{ marginTop: '15px' }}>
-            {/* Tombol diberi style warna hijau */}
-            <button type="button" className="btn-primary btn-pill-primary" style={{ backgroundColor: '#1e7e34', borderColor: '#1e7e34', color: '#fff', marginRight: '10px', padding: '5px 15px', borderRadius: '4px' }}>
-              Terapkan Filter
-            </button>
-            <button type="button" className="btn-pill-outline" style={{ padding: '5px 15px', borderRadius: '4px', border: '1px solid #ccc' }} onClick={() => { setStartDate(''); setEndDate(''); setSelectedParam('Semua Parameter'); }}>
-              Reset
-            </button>
+
+            <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+              <button 
+                style={{
+                  flex: 1,
+                  backgroundColor: '#27ae60',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 16px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: '500',
+                  transition: 'all 0.3s'
+                }}
+                onMouseOver={(e) => e.target.style.backgroundColor = '#229954'}
+                onMouseOut={(e) => e.target.style.backgroundColor = '#27ae60'}
+              >
+                Terapkan
+              </button>
+              <button 
+                style={{
+                  flex: 1,
+                  backgroundColor: '#ecf0f1',
+                  color: '#2c3e50',
+                  border: 'none',
+                  padding: '10px 16px',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: '500',
+                  transition: 'all 0.3s'
+                }}
+                onClick={() => {
+                  setStartDate('');
+                  setEndDate('');
+                  setSelectedParam('Semua Parameter');
+                }}
+                onMouseOver={(e) => e.target.style.backgroundColor = '#bdc3c7'}
+                onMouseOut={(e) => e.target.style.backgroundColor = '#ecf0f1'}
+              >
+                Reset
+              </button>
+            </div>
           </div>
         </div>
 
-{/* SNAPSHOT LINGKUNGAN */}
-        <div className="card card-animate card-animate-delay-2 card-elevated">
-          <div className="card-header card-header-top">
-            <div>
-              <div className="card-title card-title-lg">Snapshot Lingkungan</div>
-              <div className="card-subtitle card-subtitle-lg">
-                Kondisi terkini dari lahan
-              </div>
+        {/* Status Cards */}
+        <div className="card-responsive" style={{
+          background: 'linear-gradient(135deg, #27ae60 0%, #1e8449 100%)',
+          color: 'white',
+          padding: '24px',
+          boxShadow: '0 4px 15px rgba(39, 174, 96, 0.3)'
+        }}>
+          <div style={{ marginBottom: '20px' }}>
+            <div style={{ fontSize: '14px', fontWeight: '500', opacity: 0.9 }}>📍 Lokasi Sensor</div>
+            <div style={{ fontSize: '11px', opacity: 0.7 }}>Perangkat aktif</div>
+          </div>
+          <div style={{
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            borderRadius: '12px',
+            padding: '16px',
+            textAlign: 'center',
+            backdropFilter: 'blur(10px)'
+          }}>
+            <div style={{ fontSize: '24px', marginBottom: '8px' }}>✓</div>
+            <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>Blok A</div>
+            <div style={{ fontSize: '12px', opacity: 0.9 }}>
+              <strong>{DEVICE_ID}</strong>
             </div>
           </div>
-          
-          <div className="simple-card-list u-mt-05">
-            {/* === KETERANGAN LOKASI SENSOR === */}
-            <div style={{ paddingBottom: '10px', borderBottom: '1px dashed #eee', marginBottom: '10px' }}>
-              <span className="small-text text-sm-muted">Sumber Data: </span>
-              <span style={{ backgroundColor: '#e8f5e9', color: '#1e7e34', padding: '2px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold' }}>
-                📍 Blok A ({DEVICE_ID})
-              </span>
-            </div>
+          <div style={{
+            marginTop: '16px',
+            paddingTop: '12px',
+            borderTop: '1px solid rgba(255,255,255,0.2)',
+            fontSize: '13px'
+          }}>
+            Status: <strong>{error ? '🔴 Offline' : '🟢 Online'}</strong>
+          </div>
+        </div>
 
-            {loading ? (
-              <div className="small-text">Memuat data terkini...</div>
-            ) : latestData ? (
-              <>
-                <div className="small-stat">
-                  <div className="small-text text-sm-muted">Soil Moisture</div>
-                  <div className="big-number" style={{ color: '#1e7e34' }}>{latestData.moisture_val}%</div>
-                  <div className="small-text text-sm-muted">Rata-rata kelembapan akar</div>
-                </div>
-                <div className="small-stat">
-                  <div className="small-text text-sm-muted">pH Tanah</div>
-                  <div className="big-number" style={{ color: '#1e7e34' }}>{latestData.ph_val}</div>
-                  <div className="small-text text-sm-muted">Tingkat keasaman tanah</div>
-                </div>
-              </>
+        {/* Moisture Card */}
+        <div className="card-responsive" style={{
+          background: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)',
+          color: 'white',
+          padding: '24px',
+          boxShadow: '0 4px 15px rgba(52, 152, 219, 0.3)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between'
+        }}>
+          <div>
+            <div style={{ fontSize: '14px', fontWeight: '500', opacity: 0.9, marginBottom: '16px' }}>💧 Kelembapan Tanah</div>
+            {loading && sensorData.length === 0 ? (
+              <div style={{
+                height: '60px',
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                borderRadius: '8px',
+                animation: 'pulse 2s infinite'
+              }} />
             ) : (
-              <div className="small-text text-sm-muted">Data Tidak Tersedia</div>
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
+                <div style={{ fontSize: '48px', fontWeight: '700', lineHeight: '1' }}>
+                  {latestData?.moisture_val || '--'}
+                </div>
+                <div style={{ fontSize: '18px', marginBottom: '6px', opacity: 0.9 }}>%</div>
+              </div>
             )}
-          </div>
-        </div>
-        
-        {/* STATUS SENSOR */}
-        <div className="card card-animate card-animate-delay-3 card-elevated">
-          <div className="card-header card-header-top">
-            <div>
-              <div className="card-title card-title-lg">Status Sensor</div>
-              <div className="card-subtitle card-subtitle-lg">Ringkasan konektivitas node IoT</div>
-            </div>
-          </div>
-          <div className="simple-list u-mt-05">
-            <div className="small-text">
-              • Node {DEVICE_ID} – <strong style={{ color: error ? 'red' : '#1e7e34' }}>
-                {error ? 'Offline' : 'Online'}
-              </strong> 
-            </div>
           </div>
         </div>
       </section>
 
-      {/* === TABEL DATA SENSOR === */}
-      <section className="card card-animate card-animate-delay-5 card-elevated u-mb-1" style={{ marginBottom: '30px' }}>
-        <div className="card-header card-header-top">
-          <div>
-            <div className="card-title card-title-lg">Tabel Data Sensor</div>
-            <div className="card-subtitle card-subtitle-lg">
-              Data mentah riwayat pembacaan
-            </div>
-          </div>
+      {/* Data Table */}
+      <section style={{
+        backgroundColor: '#ffffff',
+        borderRadius: '15px',
+        padding: '24px',
+        marginBottom: '30px',
+        border: '1px solid #ecf0f1',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+        animation: 'slideIn 0.5s ease-out'
+      }}>
+        <div style={{ marginBottom: '20px' }}>
+          <div style={{ fontSize: '18px', fontWeight: '600', color: '#2c3e50', marginBottom: '4px' }}>📋 Data Sensor Real-Time</div>
+          <div style={{ fontSize: '13px', color: '#7f8c8d' }}>Riwayat pembacaan sensor terbaru</div>
         </div>
-        <div className="table-wrapper u-mt-05" style={{ overflowX: 'auto' }}>
-          <table className="table table-compact" style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
+
+        <div style={{
+          overflowX: 'auto',
+          borderRadius: '12px',
+          border: '1px solid #ecf0f1'
+        }}>
+          <table style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            fontSize: '14px'
+          }}>
             <thead>
-              {/* Header tabel diwarnai hijau muda */}
-              <tr style={{ backgroundColor: '#e8f5e9', color: '#1e7e34', borderBottom: '2px solid #1e7e34' }}>
-                <th style={{ padding: '10px' }}>Waktu (Timestamp)</th>
-                {/* === KOLOM BARU UNTUK LOKASI SENSOR === */}
-                <th style={{ padding: '10px' }}>Lokasi Sensor</th>
-                <th style={{ padding: '10px' }}>Soil Moisture (%)</th>
-                <th style={{ padding: '10px' }}>pH</th>
-                <th style={{ padding: '10px' }}>N (mg/kg)</th>
-                <th style={{ padding: '10px' }}>P (mg/kg)</th>
-                <th style={{ padding: '10px' }}>K (mg/kg)</th>
+              <tr style={{
+                backgroundColor: '#f8f9fa',
+                borderBottom: '2px solid #ecf0f1'
+              }}>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#2c3e50', fontWeight: '600' }}>Waktu</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#2c3e50', fontWeight: '600' }}>Lokasi</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#2c3e50', fontWeight: '600' }}>Moisture</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#2c3e50', fontWeight: '600' }}>pH</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#2c3e50', fontWeight: '600' }}>N</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#2c3e50', fontWeight: '600' }}>P</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left', color: '#2c3e50', fontWeight: '600' }}>K</th>
               </tr>
             </thead>
             <tbody>
               {loading && sensorData.length === 0 ? (
-                // ColSpan diubah dari 6 menjadi 7 karena ada tambahan 1 kolom
-                <tr><td colSpan="7" style={{ padding: '10px' }}>Memuat data...</td></tr>
+                <tr>
+                  <td colSpan="7" style={{ padding: '20px', textAlign: 'center', color: '#95a5a6' }}>
+                    ⏳ Memuat data sensor...
+                  </td>
+                </tr>
               ) : sensorData.length > 0 ? (
-                sensorData.map((row, index) => (
-                  <tr key={row.id} style={{ borderBottom: '1px solid #ddd', backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa' }}>
-                    <td style={{ padding: '10px' }}>{new Date(row.timestamp).toLocaleString('id-ID')}</td>
-                    
-                    {/* === ISI DATA LOKASI SENSOR === */}
-                    <td style={{ padding: '10px' }}>
-                      <span style={{ backgroundColor: '#e8f5e9', color: '#1e7e34', padding: '2px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold' }}>
-                        Blok A
+                sensorData.slice(0, 20).map((row, idx) => (
+                  <tr key={row.id} style={{
+                    borderBottom: '1px solid #ecf0f1',
+                    backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f8f9fa',
+                    transition: 'background-color 0.3s'
+                  }}>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span style={{ fontSize: '12px' }}>
+                        {new Date(row.timestamp).toLocaleString('id-ID', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          second: '2-digit'
+                        })}
                       </span>
                     </td>
-
-                    <td style={{ padding: '10px' }}>{row.moisture_val}</td>
-                    <td style={{ padding: '10px' }}>{row.ph_val}</td>
-                    <td style={{ padding: '10px' }}>{row.n_val}</td>
-                    <td style={{ padding: '10px' }}>{row.p_val}</td>
-                    <td style={{ padding: '10px' }}>{row.k_val}</td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span style={{
+                        backgroundColor: '#e8f5e9',
+                        color: '#27ae60',
+                        padding: '4px 8px',
+                        borderRadius: '6px',
+                        fontSize: '12px',
+                        fontWeight: '500'
+                      }}>Blok A</span>
+                    </td>
+                    <td style={{ padding: '12px 16px', fontWeight: '500', color: '#3498db' }}>{row.moisture_val}%</td>
+                    <td style={{ padding: '12px 16px', fontWeight: '500' }}>{row.ph_val}</td>
+                    <td style={{ padding: '12px 16px' }}>{row.n_val}</td>
+                    <td style={{ padding: '12px 16px' }}>{row.p_val}</td>
+                    <td style={{ padding: '12px 16px' }}>{row.k_val}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  {/* ColSpan diubah dari 6 menjadi 7 */}
-                  <td colSpan="7" style={{ textAlign: 'center', padding: '10px' }}>Tidak ada data tersedia</td>
+                  <td colSpan="7" style={{ padding: '20px', textAlign: 'center', color: '#95a5a6' }}>
+                    📭 Tidak ada data tersedia
+                  </td>
                 </tr>
               )}
             </tbody>
@@ -257,55 +369,60 @@ function MonitoringPage() {
         </div>
       </section>
 
-      {/* === GRAFIK HISTORIS === */}
-      <section className="card chart-card card-animate card-animate-delay-4 card-elevated u-mb-1" style={{ marginBottom: '30px' }}>
-        <div className="chart-header chart-header-wrap" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '10px', borderBottom: '1px solid #eee', gap: '10px' }}>
-          <div style={{ flex: 1, minWidth: '200px' }}>
-            <div className="card-title card-title-lg">Grafik Historis Sensor</div>
-            <div className="card-subtitle card-subtitle-lg">Visualisasi tren parameter 24 jam terakhir</div>
-          </div>
-          {/* Tag Pill dengan nuansa hijau */}
-          <div className="tag-row" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            <span className="tag-pill" style={{ backgroundColor: '#e8f5e9', color: '#1e7e34', padding: '4px 8px', borderRadius: '12px', fontSize: '12px' }}>Soil Moisture</span>
-            <span className="tag-pill" style={{ backgroundColor: '#e8f5e9', color: '#1e7e34', padding: '4px 8px', borderRadius: '12px', fontSize: '12px' }}>pH</span>
-            <span className="tag-pill" style={{ backgroundColor: '#e8f5e9', color: '#1e7e34', padding: '4px 8px', borderRadius: '12px', fontSize: '12px' }}>N</span>
-          </div>
+      {/* Chart */}
+      <section style={{
+        backgroundColor: '#ffffff',
+        borderRadius: '15px',
+        padding: '24px',
+        border: '1px solid #ecf0f1',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+        animation: 'slideIn 0.6s ease-out'
+      }}>
+        <div style={{ marginBottom: '20px' }}>
+          <div style={{ fontSize: '18px', fontWeight: '600', color: '#2c3e50', marginBottom: '4px' }}>📈 Tren 24 Jam Terakhir</div>
+          <div style={{ fontSize: '13px', color: '#7f8c8d' }}>Visualisasi parameter sensor IoT</div>
         </div>
-        <div style={{ width: '100%', padding: 'clamp(0.75rem, 2%, 1.5rem) 0', minHeight: '380px', backgroundColor: '#fafbfc', borderRadius: '8px', marginTop: '15px' }}>
-          <ResponsiveContainer width="100%" height={360}>
-            <LineChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e7e3" />
-              <XAxis 
-                dataKey="time" 
-                stroke="#789487"
-                style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.8rem)' }}
-                tick={{ fill: '#789487' }}
-              />
-              <YAxis 
-                stroke="#789487"
-                style={{ fontSize: 'clamp(0.65rem, 1.5vw, 0.8rem)' }}
-                tick={{ fill: '#789487' }}
-              />
-              <Tooltip 
-                contentStyle={{
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #27ae60',
-                  borderRadius: '0.8rem',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                  fontSize: 'clamp(0.7rem, 2vw, 0.85rem)',
-                }}
-                labelStyle={{ color: '#0f5a3a', fontWeight: 'bold' }}
-                formatter={(value) => value.toFixed(1)}
-              />
-              <Legend wrapperStyle={{ paddingTop: '1rem', fontSize: 'clamp(0.7rem, 2vw, 0.85rem)' }} />
-              <Line type="monotone" dataKey="soilMoisture" stroke="#27ae60" name="Soil Moisture (%)" strokeWidth={3} dot={false} />
-              <Line type="monotone" dataKey="pH" stroke="#e74c3c" name="pH Tanah" strokeWidth={3} dot={false} />
-              <Line type="monotone" dataKey="N" stroke="#3498db" name="N (mg/kg)" strokeWidth={3} dot={false} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </section>
 
+        {loading && sensorData.length === 0 ? (
+          <div style={{
+            height: '360px',
+            backgroundColor: '#f5f7fa',
+            borderRadius: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            animation: 'pulse 2s infinite'
+          }}>
+            <div style={{ textAlign: 'center', color: '#95a5a6' }}>
+              <div style={{ fontSize: '32px', marginBottom: '8px' }}>📊</div>
+              <div>Loading chart...</div>
+            </div>
+          </div>
+        ) : (
+          <div style={{ width: '100%', height: '380px' }}>
+            <ResponsiveContainer width="100%" height={360}>
+              <LineChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#ecf0f1" />
+                <XAxis dataKey="time" stroke="#95a5a6" tick={{ fill: '#95a5a6', fontSize: 12 }} />
+                <YAxis stroke="#95a5a6" tick={{ fill: '#95a5a6', fontSize: 12 }} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #ecf0f1',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                  }}
+                  cursor={{ stroke: '#ecf0f1', strokeWidth: 2 }}
+                />
+                <Legend wrapperStyle={{ paddingTop: '15px' }} />
+                <Line type="monotone" dataKey="soilMoisture" stroke="#27ae60" name="Moisture (%)" strokeWidth={3} dot={false} />
+                <Line type="monotone" dataKey="pH" stroke="#e74c3c" name="pH" strokeWidth={2} dot={false} />
+                <Line type="monotone" dataKey="N" stroke="#3498db" name="Nitrogen" strokeWidth={2} dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </section>
     </div>
   );
 }

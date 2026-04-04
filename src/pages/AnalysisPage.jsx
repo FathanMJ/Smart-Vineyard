@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 function AnalysisPage() {
   const [analysisHistory] = useState([
@@ -31,6 +31,88 @@ function AnalysisPage() {
     },
   ])
 
+  const [selectedPhoto, setSelectedPhoto] = useState(null)
+  const [photoPreview, setPhotoPreview] = useState(null)
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const fileInputRef = useRef(null)
+  const cameraInputRef = useRef(null)
+
+  // Handle file selection dari galeri
+  const handleFileSelect = (event) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    // Validasi ukuran file (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Ukuran file terlalu besar. Maksimal 5MB.')
+      return
+    }
+
+    // Validasi tipe file
+    if (!['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)) {
+      alert('Format file tidak didukung. Gunakan JPG atau PNG.')
+      return
+    }
+
+    setSelectedPhoto(file)
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      setPhotoPreview(e.target?.result)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  // Handle camera capture
+  const handleCameraCapture = (event) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    setSelectedPhoto(file)
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      setPhotoPreview(e.target?.result)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  // Analisis foto
+  const handleAnalyzePhoto = async () => {
+    if (!selectedPhoto) {
+      alert('Silakan pilih foto terlebih dahulu!')
+      return
+    }
+
+    setIsAnalyzing(true)
+    
+    try {
+      // TODO: Implementasi API untuk analisis foto
+      // const formData = new FormData()
+      // formData.append('photo', selectedPhoto)
+      // const response = await analyzePhoto(formData)
+      
+      alert('Analisis foto sedang diproses...')
+      // Simulasi proses analisis
+      setTimeout(() => {
+        setIsAnalyzing(false)
+        alert('Foto berhasil dianalisis!')
+        setSelectedPhoto(null)
+        setPhotoPreview(null)
+      }, 2000)
+    } catch (error) {
+      console.error('Error analyzing photo:', error)
+      alert('Gagal menganalisis foto: ' + error.message)
+      setIsAnalyzing(false)
+    }
+  }
+
+  // Bersihkan preview
+  const handleClearPhoto = () => {
+    setSelectedPhoto(null)
+    setPhotoPreview(null)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+    if (cameraInputRef.current) cameraInputRef.current.value = ''
+  }
+
   return (
     <div className="page page-with-padding page-shell">
       <div className="page-header u-mb-15">
@@ -42,21 +124,93 @@ function AnalysisPage() {
         </div>
       </div>
 
-      {/* Action */}
+      {/* Quick Action Buttons */}
+      <section className="u-mb-1">
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gap: '12px',
+          marginBottom: '20px'
+        }}>
+          <button 
+            type="button" 
+            className="btn-primary btn-pill-primary"
+            onClick={() => cameraInputRef.current?.click()}
+            style={{
+              padding: '16px 20px',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              borderRadius: '12px',
+              transition: 'all 0.3s'
+            }}
+          >
+            <span style={{ fontSize: '1.5rem' }}>📷</span>
+            <span>Buka Kamera</span>
+          </button>
+
+          <button 
+            type="button" 
+            className="btn-pill-outline"
+            onClick={() => fileInputRef.current?.click()}
+            style={{
+              padding: '16px 20px',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              borderRadius: '12px',
+              transition: 'all 0.3s'
+            }}
+          >
+            <span style={{ fontSize: '1.5rem' }}>📁</span>
+            <span>Pilih Galeri</span>
+          </button>
+        </div>
+      </section>
+
+      {/* Hidden File Input - Camera */}
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        style={{ display: 'none' }}
+        onChange={handleCameraCapture}
+      />
+
+      {/* Hidden File Input - Gallery */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/jpg"
+        style={{ display: 'none' }}
+        onChange={handleFileSelect}
+      />
+
+      {/* Information Cards */}
       <section className="card-grid-2 u-mb-1">
         <div className="card card-animate card-elevated">
           <div className="card-header card-header-top">
             <div>
-              <div className="card-title card-title-lg">Ambil Foto Baru</div>
-              <div className="card-subtitle card-subtitle-lg">Gunakan ESP32-CAM untuk capture</div>
+              <div className="card-title card-title-lg">📷 Ambil Foto Langsung</div>
+              <div className="card-subtitle card-subtitle-lg">Dari kamera perangkat Anda</div>
             </div>
           </div>
           <div className="simple-card-list u-mt-05">
-            <button type="button" className="btn-primary btn-pill-primary">
-              📷 Capture Foto Daun
-            </button>
-            <div className="small-text text-sm-muted u-mt-075">
-              Foto akan langsung dianalisis oleh AI
+            <div className="small-text" style={{ marginBottom: '12px' }}>
+              ✓ Capture langsung dari kamera HP/Tablet
+            </div>
+            <div className="small-text" style={{ marginBottom: '12px' }}>
+              ✓ Format: Semua format foto
+            </div>
+            <div className="small-text text-sm-muted">
+              Tekan tombol "🎥 Buka Kamera" untuk mulai
             </div>
           </div>
         </div>
@@ -64,20 +218,64 @@ function AnalysisPage() {
         <div className="card card-animate card-elevated">
           <div className="card-header card-header-top">
             <div>
-              <div className="card-title card-title-lg">Upload Manual</div>
-              <div className="card-subtitle card-subtitle-lg">Atau pilih dari galeri</div>
+              <div className="card-title card-title-lg">📁 Pilih dari Galeri</div>
+              <div className="card-subtitle card-subtitle-lg">Foto yang sudah tersimpan</div>
             </div>
           </div>
           <div className="simple-card-list u-mt-05">
-            <button type="button" className="btn-pill-outline">
-              📁 Pilih File
-            </button>
-            <div className="small-text text-sm-muted u-mt-075">
-              Format: JPG, PNG (max 5MB)
+            <div className="small-text" style={{ marginBottom: '12px' }}>
+              ✓ JPG, PNG format
+            </div>
+            <div className="small-text" style={{ marginBottom: '12px' }}>
+              ✓ Maksimal 5MB
+            </div>
+            <div className="small-text text-sm-muted">
+              Tekan tombol "📁 Pilih Galeri" untuk browse
             </div>
           </div>
         </div>
       </section>
+
+      {/* Photo Preview & Analysis */}
+      {photoPreview && (
+        <section className="card card-animate card-elevated u-mb-1">
+          <div className="card-header card-header-top">
+            <div>
+              <div className="card-title card-title-lg">Preview Foto</div>
+              <div className="card-subtitle card-subtitle-lg">Nama file: {selectedPhoto?.name}</div>
+            </div>
+          </div>
+          <div className="simple-card-list u-mt-05">
+            <div style={{ textAlign: 'center', marginBottom: '12px' }}>
+              <img 
+                src={photoPreview} 
+                alt="Preview" 
+                style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px' }}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                type="button"
+                className="btn-primary btn-pill-primary"
+                style={{ flex: 1 }}
+                onClick={handleAnalyzePhoto}
+                disabled={isAnalyzing}
+              >
+                {isAnalyzing ? '⏳ Menganalisis...' : '✓ Analisis Foto'}
+              </button>
+              <button
+                type="button"
+                className="btn-pill-outline"
+                style={{ flex: 1 }}
+                onClick={handleClearPhoto}
+                disabled={isAnalyzing}
+              >
+                ✕ Batal
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Analysis Results */}
       <section className="card card-animate card-elevated">
